@@ -61,10 +61,10 @@ cout << *(*(a + 2) + 1);
 
 4.
 ```c++
-int a[][3] = {{1, 2, 3}, {4, 5, 6}};
+int a[][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 int*** p = &a;
-*(*((*p) + 1) + 1) = (*((*p) + 2))[1];
-cout << a[2][1];
+*(*((*p) + 1) + 1) += (*((*p) + 2))[1];
+cout << a[1][1];
 ```
 
 ## 4. Ngăn xếp, hàng đợi
@@ -132,10 +132,12 @@ ii. Giả sử mỗi bức tượng đều có khối lượng khác nhau. Di ch
 - Do `(*p)` chính là `a` nên `(*p)[4]` tương đương với `a[4]`; còn `*((*p) + 1)` tương đương với `*(a + 1)`, lại chính là `a[1]`. <br>Vì vậy, `(*p)[4] = *((*p) + 1)` tương đương với `a[4] = a[1]` nên kết quả in ra màn hình sẽ là `1`.
 #### Câu 3
 - Ta có `a` là một mảng 2 chiều, hay nói cách khác, `a` là một mảng của các mảng một chiều.
-- Ta xét phần trong ngoặc đơn: `*(a+2)`. Tương tự như mảng một chiều, biểu thức trên tương đương với `a[2]`. Nhưng vì `a` là một mảng của các mảng một chiều nên `a[2]` sẽ là một mảng một chiều thành phần bên trong đó chứ không phải là một giá trị cụ thể. Hay nói cách khác, `a[2]` là một con trỏ, trỏ đến dòng số 2 của ma trận `a`. <br> Vì vậy, `*(*(a + 1) + 2)` tương đương với `*(a[1] + 2)`. 
-- Nhưng ta lại có cú pháp `*(u + i)` tương đương với `u[i]`, nên suy ra `*(a[1] + 2)` chính là `a[1][2]`. Vì vậy đáp án in ra màn hình là `4`.
+- Ta xét phần trong ngoặc đơn: `*(a+1)`. Tương tự như mảng một chiều, biểu thức trên tương đương với `a[1]`. Nhưng vì `a` là một mảng của các mảng một chiều nên `a[1]` sẽ là một mảng một chiều thành phần bên trong đó chứ không phải là một giá trị cụ thể. Hay nói cách khác, `a[1]` là một con trỏ, trỏ đến dòng số 1 của ma trận `a`. <br> Vì vậy, `*(*(a + 1) + 2)` tương đương với `*(a[1] + 2)`. 
+- Nhưng ta lại có cú pháp `*(u + i)` tương đương với `u[i]`, nên suy ra `*(a[1] + 2)` chính là `a[1][2]`. Vì vậy đáp án in ra màn hình là `6`.
 #### Câu 4
 - Xem `(*p)` như là `a` và tự nghiệm ra quy tắc.
+- Vì `*(*((*p) + 1) + 1) += (*((*p) + 2))[1]` tương đương với `a[1][1] += a[2][1]` nên đáp án in ra màn hình là `11`.
+
 ## 4. Stack và queue
 ### a. Stack
 **i. Ý tưởng**
