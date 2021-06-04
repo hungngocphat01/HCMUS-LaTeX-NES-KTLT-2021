@@ -21,21 +21,8 @@ Hiếu 5, 6
 ## 2. Danh sách liên kết
 ## 3. Con trỏ nâng cao
 ### Bài 1: Quản lí bộ nhớ
-Một cửa hàng điện thoại cần viết một chương trình để quản lí các sản phẩm mà mình bán ra. Cho struct sau:
-```c++
-struct DienThoai {
-    char* HangSX;
-    char* TenModel;
-    char* ViXuLy;
-    float RAM;
-    float BoNho;
-};
-```
 
-Hãy viết các hàm:
-- Tạo mới và nhập thông tin cho một điện thoại.
-- Biết rằng hàng tuần cửa hàng đều nhập về một lô rất nhiều điện thoại. Hãy viết một hàm cho phép tạo và nhập thông tin cho một lô điện thoại (mảng các điện thoại).
-- Giải phóng bộ nhớ cho các lô điện thoại.
+
 ### Bài 2: Số học con trỏ 
 Cho biết kết quả in ra màn hình của các đoạn code sau:
 
@@ -110,9 +97,11 @@ ii. Giả sử mỗi bức tượng đều có khối lượng khác nhau. Di ch
 ## 1
 ## 2
 ## 3. Con trỏ nâng cao
+### a. 
 
-### b. Số học con trỏ (đọc thêm)
-- Nhắc lại khái niệm về số học con trỏ: ý nghĩa thực sự đằng sau dòng khai báo<br> `int a[] = {1, 2, 3, 4};`.
+
+### b. Số học con trỏ (có nên giảng phần này luôn ko?)
+- Nhắc lại mối quan hệ giữa con trỏ và mảng: ý nghĩa thực sự đằng sau dòng khai báo<br> `int a[] = {1, 2, 3, 4};`.
 ![](https://i.imgur.com/imeVQjw.png)
 - Khi bạn khai báo một mảng trong C, giả sử được đặt tên là `a`, có 4 phần tử là `{1, 2, 3, 4}` như hình vẽ, 4 con số trên sẽ được cấp phát một vùng nhớ nào đó bên trong bộ nhớ để được lưu trữ, và chúng sẽ được lưu liên tiếp vào các vị trí vừa mới được cấp phát đó. Giả sử, chúng có các địa chỉ của mỗi phần tử liên tiếp nhau trên RAM là `0x1A, 0x1E, 0x22, ...`.
 - "Miếng" bộ nhớ trên không có một tên gọi cụ thể nào cả. Vậy thì `a` là gì? `a` có phải là tên của cái mảng đó không?
@@ -120,23 +109,32 @@ ii. Giả sử mỗi bức tượng đều có khối lượng khác nhau. Di ch
 - Cú pháp `*a` (lấy giá trị tại vị trí mà `a` trỏ tới) sẽ trả về giá trị của ô nhớ đầu tiên trong mảng. `*(a+1)` sẽ trả về giá trị của phần tử thứ 1 trong mảng (tương đương với cú pháp `a[1]`), v.v.
 
 #### Câu 1
-- Như đã nói ở trên, khi khai báo `a = {1, 2, 3, 4};` thì `a` sẽ là một con trỏ (kiểu `int*`) trỏ tới một miếng bộ nhớ có nội dung là `{1, 2, 3, 4}`.
-- Phép gán `int* p = a` đồng nghĩa với việc cho con trỏ `p` trỏ tới cùng vị trí mà `a` trỏ tới. Đó cũng chính là miếng `{1, 2, 3, 4}`.
+- Như đã nói ở trên, khi khai báo `a = {1, 2, 3, 4};` thì `a` sẽ là một con trỏ (kiểu `int*`) trỏ tới một vùng nhớ có nội dung là `{1, 2, 3, 4}`.
+- Phép gán `int* p = a` đồng nghĩa với việc cho con trỏ `p` trỏ tới cùng vị trí mà `a` trỏ tới. Đó cũng chính là vùng nhớ `{1, 2, 3, 4}`.
+
 ![](https://i.imgur.com/yQTIkEZ.png)
 
 - Vì `*(p+1)` chính là `p[1]`, mà do 2 vùng nhớ của `a` và `p` trùng nhau nên `p[1]` cũng chính là `a[1]`.<br> Phép giải tham chiếu `*a` sẽ trả về phần tử đầu tiên của mảng `a`, chính là `a[0]`. Hay nói cách khác, dòng lệnh `*(p + 1) += *a` tương đương với `a[1] += a[0]`. <br>Vì vậy `a[1]` sẽ mang giá trị `3`, nên kết quả xuất ra màn hình sẽ là `3`.
 #### Câu 2
 - Tương tự như trên, `a` là một con trỏ, trỏ tới một vùng nhớ có nội dung là `{1, 2, 3, 4, 5}`.
-- Dòng `int** p = &a` là tạo một con trỏ `p` trỏ tới vùng nhớ của `a`.
+- Dòng `int** p = &a` là tạo một con trỏ `p` trỏ tới vùng nhớ của `a`. Do `a` mang kiểu là `int*`, nên để trỏ tới nó ta cần một con trỏ kiểu `int**`.
 ![](https://i.imgur.com/ntS8mDF.png)
 - Do `(*p)` chính là `a` nên `(*p)[4]` tương đương với `a[4]`; còn `*((*p) + 1)` tương đương với `*(a + 1)`, lại chính là `a[1]`. <br>Vì vậy, `(*p)[4] = *((*p) + 1)` tương đương với `a[4] = a[1]` nên kết quả in ra màn hình sẽ là `1`.
 #### Câu 3
 - Ta có `a` là một mảng 2 chiều, hay nói cách khác, `a` là một mảng của các mảng một chiều.
+
+![](https://i.imgur.com/JrBfGez.png)
+
 - Ta xét phần trong ngoặc đơn: `*(a+1)`. Tương tự như mảng một chiều, biểu thức trên tương đương với `a[1]`. Nhưng vì `a` là một mảng của các mảng một chiều nên `a[1]` sẽ là một mảng một chiều thành phần bên trong đó chứ không phải là một giá trị cụ thể. Hay nói cách khác, `a[1]` là một con trỏ, trỏ đến dòng số 1 của ma trận `a`. <br> Vì vậy, `*(*(a + 1) + 2)` tương đương với `*(a[1] + 2)`. 
 - Nhưng ta lại có cú pháp `*(u + i)` tương đương với `u[i]`, nên suy ra `*(a[1] + 2)` chính là `a[1][2]`. Vì vậy đáp án in ra màn hình là `6`.
+
+
 #### Câu 4
-- Xem `(*p)` như là `a` và tự nghiệm ra quy tắc.
-- Vì `*(*((*p) + 1) + 1) += (*((*p) + 2))[1]` tương đương với `a[1][1] += a[2][1]` nên đáp án in ra màn hình là `11`.
+- Vì `*(*((*p) + 1) + 1) += (*((*p) + 2))[1]`  
+$\Leftrightarrow$ `(*(*(a + 1) + 1) += (*(a + 2))[1])`   
+$\Leftrightarrow$ `(*(a[1] + 1) += (a[2])[1])`   
+$\Leftrightarrow$ `a[1][1] += a[2][1]`   
+Nên đáp án in ra màn hình là `11`.  
 
 ## 4. Stack và queue
 ### a. Stack
@@ -181,6 +179,7 @@ bool checkBracketPairs(string s) {
     return true;
 }
 
+// Hàm kiểm tra xem một cặp ngoặc có cùng loại hay không
 bool sameType(char open, char close) {
     if (open == '(' && close == ')') return true;
     if (open == '[' && close == ']') return true;
