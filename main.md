@@ -19,23 +19,69 @@ Hiếu 5, 6
 ## 1. Con trỏ cơ bản
 
 ## 2. Danh sách liên kết
-### Bài 1
-
 ## 3. Con trỏ nâng cao
+### Bài 1: Quản lí bộ nhớ
+Một cửa hàng điện thoại cần viết một chương trình để quản lí các sản phẩm mà mình bán ra. Cho struct sau:
+```c++
+struct DienThoai {
+    char* HangSX;
+    char* TenModel;
+    char* ViXuLy;
+    float RAM;
+    float BoNho;
+};
+```
+
+Hãy viết các hàm:
+- Tạo mới và nhập thông tin cho một điện thoại.
+- Biết rằng hàng tuần cửa hàng đều nhập về một lô rất nhiều điện thoại. Hãy viết một hàm cho phép tạo và nhập thông tin cho một lô điện thoại (mảng các điện thoại).
+- Giải phóng bộ nhớ cho các lô điện thoại.
+### Bài 2: Số học con trỏ 
+Cho biết kết quả in ra màn hình của các đoạn code sau:
+
+1. 
+```c++
+int a[] = {1, 2, 3, 4, 5};
+int* p = a;
+*(p + 1) += *a;
+cout << *(a + 1);
+```
+2. 
+```c++
+int a[] = {1, 2, 3, 4, 5};
+int** p = &a;
+(*p)[4] = *((*p) + 1);
+cout << a[4] << endl;
+```
+3.
+```c++
+int a[][3] = {{1, 2, 3}, {4, 5, 6}};
+cout << *(*(a + 2) + 1);
+```
+
+4.
+```c++
+int a[][3] = {{1, 2, 3}, {4, 5, 6}};
+int*** p = &a;
+*(*((*p) + 1) + 1) = (*((*p) + 2))[1];
+cout << a[2][1];
+```
 
 ## 4. Ngăn xếp, hàng đợi
+### a. Ngăn xếp
 *Bài toán Balanced Brackets trên HackerRank, nhóm Data Structure, độ khó Medium.  
 Tác giả: @saikiran9194.*  
 
-Cho một chuỗi chứa các cặp dấu ngoặc `()` `[]` `{}`. Một chuỗi các dấu ngoặc được gọi là "hợp lệ" nếu như với mỗi dấu mở ngoặc thì nó sẽ có một dấu đóng ngoặc tương ứng.  
+Cho một chuỗi chứa các cặp dấu ngoặc `()` `[]` `{}`. Một chuỗi các dấu ngoặc được gọi là "hợp lệ" nếu như với mỗi dấu mở ngoặc thì nó sẽ có một dấu đóng ngoặc cùng loại tương ứng.  
 Ví dụ: các chuỗi sau là hợp lệ: `()[]{}`, `{[()]}`, `([]{})`, `[{(){}}]`, ... 
 
 Thực hiện các yêu cầu sau:  
 i. Trình bày ý tưởng để biết được một chuỗi các cặp dấu ngoặc có là hợp lệ hay không?  
-ii. Viết một hàm kiểm tra như mô tả ở trên, có prototype như sau:
+ii. Viết một hàm kiểm tra tính hợp lệ của một chuỗi như mô tả ở trên, có prototype như sau:
 ```c++
 bool checkBracketPairs(string str);
 ```
+### b. Hàng đợi
 
 ## 5. Đệ quy
 Game Minesweeper có một thuật toán rất hay đó là thuật toán vết dầu loang. Thuật toán được mô tả như sau:
@@ -55,7 +101,7 @@ int Open(int xPoint, int yPoint, int** values, bool** isOpen, int length);
 
 Một biệt thự mới xây đang trang trí cho sân nhà của họ, họ định trang trí dọc đường đi bằng những bức tượng, bức tượng có thể tích lớn nhỏ khác nhau. Giả sử chúng ta có một mảng số thực để lưu trữ thể tích của các bức tượng theo thứ tự từ ngoài cổng biệt thự đến cửa nhà. Ban đầu shipper giao các bức tượng đến trước cổng nhà và họ sắp xếp ngẫu nhiên. Bạn hãy tìm thuật toán sắp xếp thích hợp để sắp xếp các bức tượng sao cho từ cổng nhà đến cửa có thể tích từ nhỏ đến lớn sao cho:
 
-i. Tổng khoảng cách di chuyển các bức tượng là ít nhất
+i. Tổng khoảng cách di chuyển các bức tượng là ít nhất  
 ii. Giả sử mỗi bức tượng đều có khối lượng khác nhau. Di chuyển ít sức lực nhất. <span style="color: red;" class="ola">(*)</span>
 
 ## 7. Quy hoạch động 
@@ -63,8 +109,83 @@ ii. Giả sử mỗi bức tượng đều có khối lượng khác nhau. Di ch
 # P2: Đáp án, giải thích
 ## 1
 ## 2
-## 3
-## 4
+## 3. Con trỏ nâng cao
+
+### b. Số học con trỏ (đọc thêm)
+- Nhắc lại khái niệm về số học con trỏ: ý nghĩa thực sự đằng sau dòng khai báo<br> `int a[] = {1, 2, 3, 4};`.
+![](https://i.imgur.com/imeVQjw.png)
+- Khi bạn khai báo một mảng trong C, giả sử được đặt tên là `a`, có 4 phần tử là `{1, 2, 3, 4}` như hình vẽ, 4 con số trên sẽ được cấp phát một vùng nhớ nào đó bên trong bộ nhớ để được lưu trữ, và chúng sẽ được lưu liên tiếp vào các vị trí vừa mới được cấp phát đó. Giả sử, chúng có các địa chỉ của mỗi phần tử liên tiếp nhau trên RAM là `0x1A, 0x1E, 0x22, ...`.
+- "Miếng" bộ nhớ trên không có một tên gọi cụ thể nào cả. Vậy thì `a` là gì? `a` có phải là tên của cái mảng đó không?
+- Thực ra khi khai báo mảng như trên thì `a` sẽ là một biến con trỏ, với giá trị mà nó chứa là địa chỉ của ô nhớ đầu tiên của "miếng" bộ nhớ mà vừa được cấp phát ở trên. Bản thân con trỏ cũng là một biến, nên nó cũng có địa chỉ của riêng nó. (nhìn hình minh họa, giả sử địa chỉ của con trỏ đó là `0x3F`).
+- Cú pháp `*a` (lấy giá trị tại vị trí mà `a` trỏ tới) sẽ trả về giá trị của ô nhớ đầu tiên trong mảng. `*(a+1)` sẽ trả về giá trị của phần tử thứ 1 trong mảng (tương đương với cú pháp `a[1]`), v.v.
+
+#### Câu 1
+- Như đã nói ở trên, khi khai báo `a = {1, 2, 3, 4};` thì `a` sẽ là một con trỏ (kiểu `int*`) trỏ tới một miếng bộ nhớ có nội dung là `{1, 2, 3, 4}`.
+- Phép gán `int* p = a` đồng nghĩa với việc cho con trỏ `p` trỏ tới cùng vị trí mà `a` trỏ tới. Đó cũng chính là miếng `{1, 2, 3, 4}`.
+![](https://i.imgur.com/yQTIkEZ.png)
+
+- Vì `*(p+1)` chính là `p[1]`, mà do 2 vùng nhớ của `a` và `p` trùng nhau nên `p[1]` cũng chính là `a[1]`.<br> Phép giải tham chiếu `*a` sẽ trả về phần tử đầu tiên của mảng `a`, chính là `a[0]`. Hay nói cách khác, dòng lệnh `*(p + 1) += *a` tương đương với `a[1] += a[0]`. <br>Vì vậy `a[1]` sẽ mang giá trị `3`, nên kết quả xuất ra màn hình sẽ là `3`.
+#### Câu 2
+- Tương tự như trên, `a` là một con trỏ, trỏ tới một vùng nhớ có nội dung là `{1, 2, 3, 4, 5}`.
+- Dòng `int** p = &a` là tạo một con trỏ `p` trỏ tới vùng nhớ của `a`.
+![](https://i.imgur.com/ntS8mDF.png)
+- Do `(*p)` chính là `a` nên `(*p)[4]` tương đương với `a[4]`; còn `*((*p) + 1)` tương đương với `*(a + 1)`, lại chính là `a[1]`. <br>Vì vậy, `(*p)[4] = *((*p) + 1)` tương đương với `a[4] = a[1]` nên kết quả in ra màn hình sẽ là `1`.
+#### Câu 3
+- Ta có `a` là một mảng 2 chiều, hay nói cách khác, `a` là một mảng của các mảng một chiều.
+- Ta xét phần trong ngoặc đơn: `*(a+2)`. Tương tự như mảng một chiều, biểu thức trên tương đương với `a[2]`. Nhưng vì `a` là một mảng của các mảng một chiều nên `a[2]` sẽ là một mảng một chiều thành phần bên trong đó chứ không phải là một giá trị cụ thể. Hay nói cách khác, `a[2]` là một con trỏ, trỏ đến dòng số 2 của ma trận `a`. <br> Vì vậy, `*(*(a + 1) + 2)` tương đương với `*(a[1] + 2)`. 
+- Nhưng ta lại có cú pháp `*(u + i)` tương đương với `u[i]`, nên suy ra `*(a[1] + 2)` chính là `a[1][2]`. Vì vậy đáp án in ra màn hình là `4`.
+#### Câu 4
+- Xem `(*p)` như là `a` và tự nghiệm ra quy tắc.
+## 4. Stack và queue
+### a. Stack
+**i. Ý tưởng**
+
+Ta để ý là các cặp dấu ngoặc xuất hiện theo thứ tự 
+first in first out, có nghĩa là dấu mở ngoặc nào tới sau thì nó phải được đóng trước. Do đó ta sử dụng stack để giải bài toán này. Cụ thể như sau:
+- Ta duyệt qua từng kí tự của chuỗi đó.
+- Nếu ta gặp một dấu mở ngoặc, ta đẩy nó vào stack.
+- Nếu ta gặp một dấu đóng ngoặc, ta kiểm tra thử nó có cùng loại với dấu mở ngoặc mà ta gặp gần nhất hay không (dấu mở ngoặc gần nhất là phần tử trên đỉnh stack). Nếu có, ta tiếp tục xét kí tự tiếp theo. Nếu khác loại thì coi như chuỗi là không hợp lệ (trường hợp này là bị thiếu dấu mở ngoặc, dư dấu đóng ngoặc).
+- Sau khi duyệt hết các kí tự trong chuỗi, ta kiểm tra xem trong stack còn dư phần tử nào hay không, nếu có thì ta đã rơi vào trường hợp dư dấu mở ngoặc, thiếu dấu đóng ngoặc.
+- Nếu chuỗi nhập vào không vi phạm bất cứ tiêu chuẩn nào thì nó là hợp lệ.
+
+**ii. Code**
+```c++
+bool checkBracketPairs(string s) {
+    stack<char> history;
+    
+    // Ta duyệt qua từng kí tự 
+    for (char c : s) {
+        // Nếu ta gặp dấu mở ngoặc thì push vào stack
+        if (c == '(' || c == '[' || c == '{') {
+            history.push(c);
+        }
+        // Nếu ta gặp dấu đóng ngoặc
+        else if (c == ')' || c == ']' || c == '}') {
+            // Nếu dấu đóng ngoặc đó không phải đồng loại 
+            // của dấu mở ngoặc trên đỉnh stack -> sai
+            if (history.empty() || !sameType(history.top(), c) {
+                return false;
+            }
+        } 
+    }
+    
+    // Nếu ta đã duyệt hết chuỗi rồi mà trong stack vẫn còn
+    // dư phần tử -> sai
+    if (!history.empty()) {
+        return false;
+    }
+    
+    // Nếu không sai thì là đúng :)
+    return true;
+}
+
+bool sameType(char open, char close) {
+    if (open == '(' && close == ')') return true;
+    if (open == '[' && close == ']') return true;
+    if (open == '{' && close == '}') return true;
+    return false;
+}
+```
 ## 5
 
 ## 6
