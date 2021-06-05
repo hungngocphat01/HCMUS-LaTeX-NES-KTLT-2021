@@ -19,11 +19,11 @@ Hiếu 5, 6
 ## 1. Con trỏ cơ bản
 
 ## 2. Con trỏ nâng cao
-**Hãy viết các lệnh/đoạn lệnh để cấp phát, giải phóng bộ nhớ và hiển thị nội dung cho các mảng động sau:**  
+**Hãy viết các lệnh/đoạn lệnh để cấp phát, giải phóng bộ nhớ và nhập nội dung cho các mảng động sau:**  
 a.  Mảng nguyên một chiều có `n` phần tử.  
 b. Ma trận thực `MxN`.  
 c. Mảng có `n` chuỗi kí tự, mỗi chuỗi kí tự có độ dài khác nhau nhập từ bàn phím.  
-d. Cho cấu trúc số phức như sau, hãy cấp phát bộ nhớ động cho một ma trận phức có kích thước `MxN`. Đồng thời, gán cho mỗi phần tử giá trị mặc định là $a+bi$, với $a$ và $b$ lần lượt là chỉ số hàng và chỉ số cột của ô đó.  
+d. **(Đọc thêm)** Cho cấu trúc số phức như sau, hãy cấp phát bộ nhớ động cho một ma trận phức có kích thước `MxN`. Đồng thời, gán cho mỗi phần tử giá trị mặc định là $a+bi$, với $a$ và $b$ lần lượt là chỉ số hàng và chỉ số cột của ô đó.  
 ```c++
 struct ComplexNumber {
     float Re;
@@ -114,11 +114,114 @@ int*** p = &a;
 cout << a[1][1];
 ```
 
+<!--------------------------------------------->
+
 # P2: Đáp án, giải thích
 ## 1
 ## 2
 ## 3. Con trỏ nâng cao
-### a. 
+a. 
+```c++
+// Cấp phát
+int n;
+cin >> n;
+int* a = new int[n];
+
+// Nhập
+for (int i = 0; i < n; i++) {
+    cin >> a[i];
+}
+
+// Giải phóng
+delete[] a;
+```
+
+b.  
+Nhắc lại kiến thức:
+![](https://i.imgur.com/jfSvgcb.png)
+```c++
+// Cấp phát
+int m, n;
+cin >> m >> n;
+
+// Một ma trận có m hàng
+float** a = (float*)[m];
+
+// Mỗi hàng có n cột
+for (int i = 0; i < m; i++) {
+    a[i] = new float[n];
+}
+
+// Nhập
+for (int i = 0; i < m; i++) {
+    for (int j = 0; j < n; j++) {
+        cin >> a[i][j];
+    }
+}
+
+// Giải phóng
+for (int i = 0; i < m; i++) {
+    delete[] a[i];
+}
+delete[] a;
+/*
+Ta phải giải phóng các phần tử của a trước khi giải phóng a,
+vì bản thân a chỉ là một con trỏ 2 cấp, nó không thực sự chứa
+nội dung của ma trận. Khi ta giải phóng a thì các con trỏ thành 
+phần bên trong a vẫn còn tồn tại, gây rò rỉ bộ nhớ. */
+```
+![](https://i.imgur.com/xmYWlMs.png)
+
+c. 
+```c++
+int n;
+cin >> n;
+
+// Mảng của các chuỗi
+char** a = new (char*)[n];
+
+// Cấp phát và nhập từng chuỗi
+for (int i = 0; i < n; i++) {
+    int size;
+    cin >> size;
+    
+    a[i] = new char[size];
+    gets(a[i]);
+}
+
+// Giải phóng
+for (int i = 0; i < n; i++) {
+    delete[] a[i];
+}
+delete[] a;
+```
+d. (đọc thêm)
+```c++
+int m, n;
+cin >> m >> n;
+
+// Ma trận gồm m hàng
+ComplexNumber** a = (ComplexNumber*)[m];
+
+// Mỗi hàng gồm n cột
+for (int i = 0; i < m; i++) {
+    a[i] = new ComplexNumber[n];
+    
+    // Gán giá trị Re=i, Im=j cho các ô cho các ô
+    for (int j = 0; i < m; i++) {
+        a[i][j].Re = i;
+        a[i][j].Im = j;
+    }
+}
+
+// Giải phóng
+for (int i = 0; i < m; i++) {
+    delete[] a[i];
+}
+delete a[];
+```
+
+
 
 ## 4. Stack và queue
 ### a. Stack
