@@ -22,7 +22,7 @@
 \usepackage{csquotes}
 \usepackage[vietnamese,english]{babel}
 \usepackage{amsmath}
-\usepackage{minted}
+\usepackage[outputdir=build,cache=false]{minted}
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
@@ -66,8 +66,7 @@
 \newcommand{\nocontentsline}[3]{}
 \newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
 
-\newcommand{\code}[2][text]
-{\mintinline{#1}{#2}}
+\newcommand{\code}[1]{\texttt{#1}}
 
 \renewenvironment{figure*}
 {\begin{figure}[H]\center}

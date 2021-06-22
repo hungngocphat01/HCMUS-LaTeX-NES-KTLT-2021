@@ -90,10 +90,45 @@ first in first out, có nghĩa là dấu mở ngoặc nào tới sau thì nó ph
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Đệ quy}
-Chưa soạn
+Nhắc lại về thuật toán Selection Sort:
+\begin{itemize}
+	\item Chọn ra phần tử nhỏ nhất trong n phần tử ban đầu.
+	\item Hoán đổi phần tử đó lên đầu mảng.
+	\item Bỏ qua phần tử đầu tiên, ta xem phần tử tiếp theo như là đầu mảng và tiếp tục lặp lại thuật toán cho đến khi hết mảng.
+\end{itemize}
+
+Ta có thể cài đặt một thuật toán đệ quy trên DSLK như sau:
+
+\begin{minted}{cpp}
+void recursiveSelectionSort(Node* head);
+\end{minted}
+
+\begin{itemize}
+	\item Tìm phần tử nhỏ nhất trong danh sách liên kết.
+	\item Hoán đổi node nhỏ nhất đó lên đầu dãy.
+	\item Gọi hàm sắp xếp đệ quy cho dãy có \code{head} là \code{head->next}.
+\end{itemize}
 
 \subsection{Quy hoạch động}
-Chưa soạn
+Lưu ý: khi giải một bài toán có sử dụng quy hoạch động, ta cần làm 2 bước sau:
+\begin{itemize}
+	\item Làm theo phương pháp vét cạn trước:
+		\begin{itemize}
+			\item Thử làm bài toán đó bằng tay và rút ra thuật toán thực hiện.
+			\item Mô hình hoá thứ tự các bước thực hiện dưới dạng đồ thị.
+			\item Cài đặt thuật toán bằng đệ quy.
+		\end{itemize}
+	\item Tối ưu hoá:
+		\begin{itemize}
+			\item Thêm một ``bảng ghi nhớ'' vào hàm đệ quy đã viết ở bước trước.
+			\item Mỗi khi gọi hàm, tra bảng và trả về giá trị đã được lưu, nếu không có thì bắt đầu thực thi quá trình tính toán và lưu giá trị vào bảng ghi nhớ đó.
+		\end{itemize}
+\end{itemize}
+
+Bạn có thể tham khảo thêm trong khoá học dài 5 tiếng về quy hoạch động của \code{freeCodeCamp} (tiếng Anh): \href{https://www.youtube.com/watch?v=oBt53YbR9Kk}{Youtube: Dynamic Programming - Learn to Solve Algorithmic Problems \& Coding Challenges}.
+
+Phân tích bài toán: giả sử ta có \code{a = \{5, 3, 4, 7\}} và \code{n = 7}.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
