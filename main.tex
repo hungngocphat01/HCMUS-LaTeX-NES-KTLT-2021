@@ -1,0 +1,171 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University Assignment Title Page 
+% LaTeX Template
+% Version 1.0 (27/12/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% WikiBooks (http://en.wikibooks.org/wiki/LaTeX/Title_Creation)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Ôn tập cuối kỳ môn Kỹ thuật lập trình}
+%%%%%%%%%%%%%%%%%%%%%% PACKAGE INCLUSIONS %%%%%%%%%%%%%%%%%%%%%% 
+\documentclass[12pt]{article}
+\usepackage[T5]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[vietnamese,english]{babel}
+\usepackage{amsmath}
+\usepackage{minted}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage[unicode]{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{subfiles}
+\usepackage{background}
+\backgroundsetup{angle=0,contents=\includegraphics{image/neslogo.jpg},opacity=0.07,scale=0.3}
+\usepackage{geometry}
+
+%%%%%%%%%%%%%%%%%%%%%% DOCUMENT FORMATTING %%%%%%%%%%%%%%%%%%%%%% 
+\geometry{
+    a4paper,
+    total={170mm,250mm},
+    left=20mm,
+    top=30mm,
+ }
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor=blue
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Câu lạc bộ Học thuật NES}
+\lhead{Tài liệu ôn tập cuối kỳ Kỹ thuật lập trình}
+\rfoot{Trang \thepage}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.3em}
+\setlength{\headheight}{15pt}
+
+\AtBeginEnvironment{minted}{
+    \renewcommand{\fcolorbox}[4][]{#4}}
+%%%%%%%%%%%%%%%%%%%%%% MACRO DEFINITIONS %%%%%%%%%%%%%%%%%%%%%% 
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+
+\newcommand{\code}[2][text]
+{\mintinline{#1}{#2}}
+
+\renewenvironment{figure*}
+{\begin{figure}[H]\center}
+{\end{figure}}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%%%% 
+\begin{titlepage}
+% \NoBgThispage
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+\vspace*{\fill}
+ 
+\textsc{\LARGE Đại học Khoa học Tự nhiên}\\[0.2cm]
+\textsc{\large Đại học Quốc gia TP. HCM }\\[1.5cm] 
+\textsc{\Large Câu lạc bộ Học thuật NES}\\[0.2cm] 
+\textsc{\large Mảng Điện tử - Kỹ thuật }\\[0.5cm]
+\HRule \\[0.4cm]
+{ \huge \bfseries Tài liệu ôn thi cuối kỳ môn\break 
+Kỹ thuật lập trình}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+\LARGE Bản thảo số 1 ngày 22/06/2021 \\
+\LARGE Lưu hành nội bộ
+~
+\begin{minipage}{1\textwidth}
+\begin{center}
+    \LARGE Học kỳ 2, năm học 2020 - 2021
+\end{center}
+\end{minipage}\\[2cm]
+\includegraphics[width=10em]{image/neslogo.jpg}
+\vspace*{\fill} % Fill the rest of the page with whitespace
+\end{titlepage}
+%%%%%%%%%%%%%%%%%%%%%% DOCUMENT CONTENT %%%%%%%%%%%%%%%%%%%%%% 
+\renewcommand*\contentsname{Mục lục}
+\setcounter{tocdepth}{2}
+\tableofcontents
+\pagebreak
+
+\section{Đề bài}
+\subfile{section_question}
+
+\section{Đáp án và giải thích}
+\subfile{section_answer}
+
+% \bibliographystyle{IEEEtran}
+% \bibliography{bib}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Comments can be added to the margins of the document using the \todo{Here's a comment in the margin!} todo command, as shown in the example on the right. You can also add inline comments too:
+
+% \todo[inline, color=green!40]{This is an inline comment.}
+
+
+
+% \subsection{Tables and Figures}
+
+% Use the table and tabular commands for basic tables --- see Table~\ref{tab:widgets}, for example. You can upload a figure (JPEG, PNG or PDF) using the files menu. To include it in your document, use the includegraphics command as in the code for Figure~\ref{fig:frog} below.
+
+% % % Commands to include a figure:
+% % \begin{figure}
+% % \centering
+% % \includegraphics[width=0.5\textwidth]{frog.jpg}
+% % \caption{\label{fig:frog}This is a figure caption.}
+% % \end{figure}
+
+% % \begin{table}
+% % \centering
+% % \begin{tabular}{l|r}
+% % Item & Quantity \\\hline
+% % Widgets & 42 \\
+% % Gadgets & 13
+% % \end{tabular}
+% % \caption{\label{tab:widgets}An example table.}
+% % \end{table}
+
+% \subsection{Mathematics}
+
+% \LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
+% $$S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
+%       = \frac{1}{n}\sum_{i}^{n} X_i$$
+% denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+
+% \subsection{Lists}
+
+% You can make lists with automatic numbering \dots
+
+% \begin{enumerate}
+% \item Like this,
+% \item and like this.
+% \end{enumerate}
+% \dots or bullet points \dots
+% \begin{itemize}
+% \item Like this,
+% \item and like this.
+% \end{itemize}
+
+% We hope you find write\LaTeX\ useful, and please let us know if you have any feedback using the help menu above.
+
