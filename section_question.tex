@@ -26,7 +26,7 @@ int a[][3] = { {4, 7, 2}, {5, 8, 1} };
 cout << *(*(a + 2) + 1);
 \end{minted}
 \end{enumerate}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Con trỏ nâng cao}
 Hãy viết các đoạn code để cấp phát và giải phóng bộ nhớ và nhập nội dung cho các mảng động sau:
 \begin{enumerate}[label=\alph*.]
@@ -36,7 +36,7 @@ Hãy viết các đoạn code để cấp phát và giải phóng bộ nhớ và
 \end{enumerate}
 \textit{Lưu ý: Kích thước của các mảng trên được nhập từ bàn phím.
 }
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Danh sách liên kết}
 Một danh sách liên kết đơn có thành phần dữ liệu là số nguyên dương được mô tả như sau:
 \begin{minted}{cpp}
@@ -54,12 +54,11 @@ Input:  3   8   6   1
 Output: 3   5   3   1
 \end{minted}
 
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{image/q_DSLK.png}
 \end{figure}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Ngăn xếp, hàng đợi}
 \subsubsection{Ngăn xếp}
 \textit{Bài toán bên dưới nằm trong Interview Preparation Kit của \code{hackerrank}, nên các bạn có thể hình dung khi phỏng vấn xin việc thì những bài toán họ cho các bạn cũng nằm ở mức độ tương tự như thế này. Link: \href{https://www.hackerrank.com/challenges/balanced-brackets/}{Balanced Brackets}}.
@@ -75,6 +74,7 @@ Hãy thực hiện các yêu cầu sau:
 \end{enumerate}
 \textit{Gợi ý: dấu mở ngoặc nào xuất hiện trước sẽ luôn được đóng trước.}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Đệ quy và giải thuật sắp xếp}
 \textit{Đề thi cuối kỳ KTLT lớp 19CTT4 (2020).}
 
@@ -89,9 +89,9 @@ struct Node {
 }
 \end{minted}
 Hãy viết \textbf{hàm đệ quy} Selection Sort để sắp xếp danh sách liên kết trên tăng dần?
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Quy hoạch động}
-Cho một dãy các mệnh giá tiền xu \code{int a[]} có kích thước \code{m} và một món hàng có giá tiền là \code{n} (xu). Hãy tìm ra cách lấy các đồng xu mang những mệnh giá đã cho (một mệnh giá có thể lấy một hoặc nhiều đồng xu) để trả tiền cho món hàng đó sao cho \textit{số lượng đồng xu là nhỏ nhất}?
+Cho một giỏ có vô hạn đồng xu gồm nhiều mệnh giá khác nhau, các loại mệnh giá được lưu trong một mảng \code{int a[]} có kích thước \code{m}. Cho một món hàng có giá tiền là \code{n} (xu), hãy tìm ra cách lấy các đồng xu từ giỏ trên (với mỗi mệnh giá có thể lấy một hoặc nhiều đồng xu) để trả tiền cho món hàng đó sao cho \textit{số lượng đồng xu là nhỏ nhất}?
 
 Ví dụ:
 \begin{figure*}

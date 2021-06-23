@@ -85,8 +85,6 @@ first in first out, có nghĩa là dấu mở ngoặc nào tới sau thì nó ph
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection{Hàng đợi}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Đệ quy}
@@ -109,6 +107,8 @@ void recursiveSelectionSort(Node* head);
 	\item Gọi hàm sắp xếp đệ quy cho dãy có \code{head} là \code{head->next}.
 \end{itemize}
 
+\inputminted[linenos]{cpp}{answer_sources/DeQuy.cpp}
+
 \subsection{Quy hoạch động}
 Lưu ý: khi giải một bài toán có sử dụng quy hoạch động, ta cần làm 2 bước sau:
 \begin{itemize}
@@ -125,10 +125,254 @@ Lưu ý: khi giải một bài toán có sử dụng quy hoạch động, ta c�
 		\end{itemize}
 \end{itemize}
 
-Bạn có thể tham khảo thêm trong khoá học dài 5 tiếng về quy hoạch động của \code{freeCodeCamp} (tiếng Anh): \href{https://www.youtube.com/watch?v=oBt53YbR9Kk}{Youtube: Dynamic Programming - Learn to Solve Algorithmic Problems \& Coding Challenges}.
+Bạn có thể tham khảo thêm trong khoá học dài 5 tiếng về quy hoạch động của \code{freeCodeCamp} (tiếng Anh): \href{https://www.youtube.com/watch?v=oBt53YbR9Kk}{Youtube: Dynamic Programming - Learn to Solve Algorithmic Problems \& Coding Challenges}. Bài toán trên nằm ở \code{1:52:07}.
 
-Phân tích bài toán: giả sử ta có \code{a = \{5, 3, 4, 7\}} và \code{n = 7}.
+\subsubsection{Phân tích bài toán}
+Giả sử ta có \code{a = \{7, 3, 6, 2\}} và \code{n = 8}. Để biết được các phần tử nào cộng lại có giá trị là 8, ta làm theo các bước sau:
+\begin{itemize}
+    \item Giả sử ta có một dãy các phần tử $a_1, a_2, ... \in a$.
+    \item Nếu $a_1+a_2+a_3+...=n$ (các $a_i$ có thể trùng nhau) thì ta có $n-a_1-a_2-a_3-...=0$.\par
+    $\Rightarrow$ Phương pháp để biết được liệu $n$ có thể phân tích thành các phần tử trong $a$ hay không là đem $n$ lần lượt trừ đi các phần tử trong $a$. Nếu $n$ trừ cho dãy các phần tử nào trong $a$ mà ra $0$ thì ta biết được dãy đó có tổng bằng chính $n$.
+\end{itemize}
 
+\subsubsection{Mô phỏng thuật toán bằng đồ thị}
+Ta lần lượt lấy 8 trừ cho các phần tử trong \code{a}.
+
+\begin{center}
+\begin{forest}
+for tree = {
+    circle, draw,
+    s sep+ = 10mm,
+    l sep+ = 6mm,
+    EL/.style = {
+        edge label={node[midway, fill=white, inner sep=2pt, anchor=center]{#1}},
+    },
+    LV/.style = {
+        draw=blue
+    }
+}
+    [8,LV
+        [1,EL=7]
+        [5,EL=3]
+        [2,EL=6]
+        [6,EL=2]
+    ]
+\end{forest}
+\par Quy ước kí hiệu: số 7 trên đường nối giữa 8 và 1 nghĩa là lấy 8-7=1
+\end{center}
+
+Ứng với mỗi hiệu thu được, ta tiếp tục thực hiện đệ quy, lại lấy nó lần lượt  trừ cho các phần tử trong \code a. Dưới đây là ví dụ cho node số 6.
+
+\begin{center}
+    \begin{forest}
+    for tree = {
+        circle, draw,
+        s sep+ = 10mm,
+        l sep+ = 6mm,
+        EL/.style = {
+            edge label={node[midway, fill=white, inner sep=2pt, anchor=center]{#1}},
+        },
+        LV/.style = {
+            draw=blue
+        }
+    }
+    [8
+        [1,EL=7]
+        [5,EL=3]
+        [2,EL=6]
+        [6,EL=2,LV
+            [-1,EL=7]
+            [3,EL=3]
+            [0,EL=6]
+            [4,EL=2]
+        ]
+    ]
+\end{forest}
+\end{center}
+
+Ta tiếp tục thực hiện cho các node \code{1, 5, 2}  còn lại. Để tiết kiệm không gian, mình sẽ không ghi các node có giá trị âm.
+
+\begin{center}
+    \begin{forest}
+    for tree = {
+        circle, draw,
+        s sep+ = 10mm,
+        l sep+ = 6mm,
+        EL/.style = {
+            edge label={node[midway, fill=white, inner sep=2pt, anchor=center]{#1}},
+        },
+        LV/.style = {
+            draw=blue
+        }
+    }
+    [8
+        [1,EL=7,LV]
+        [5,EL=3,LV
+            [2,EL=3]
+            [3,EL=2]
+        ]
+        [2,EL=6,LV
+            [0,EL=2]
+        ]
+        [6,EL=2,LV
+            [0,EL=6]
+            [3,EL=3]
+            [4,EL=2]
+        ]
+    ]
+\end{forest}
+\end{center}
+
+Với những hiệu thu được, ta lại tiếp tục đệ quy, lại lấy chúng trừ cho các phần tử trong \code{a}. Nếu hiệu âm, chúng ta sẽ bỏ qua (mình sẽ không vẽ lại).
+
+\begin{center}
+    \begin{forest}
+    for tree = {
+        circle, draw,
+        s sep+ = 10mm,
+        l sep+ = 6mm,
+        EL/.style = {
+            edge label={node[midway, fill=white, inner sep=2pt, anchor=center]{#1}},
+        },
+        MK/.style = {
+            edge = red
+        },
+        LV/.style = {
+            draw=blue
+        },
+    }
+    [8
+        [1,EL=7]
+        [5,EL=3
+            [2,EL=3,LV
+                [0,EL=2]
+            ]
+            [3,EL=2,LV
+                [0,EL=3]
+            ]
+        ]
+        [2,EL=6
+            [0,EL=2]
+        ]
+        [6,EL=2
+            [0,EL=6]
+            [3,EL=3,LV
+                [0,EL=3]
+                [1,EL=2]
+            ]
+            [4,EL=2,LV
+                [1,EL=3]
+                [2,EL=2]
+            ]
+        ]
+    ]
+\end{forest}
+\end{center}
+
+Ta tiếp tục thực hiện đệ quy với bậc cuối cùng 
+\begin{center}
+    \begin{forest}
+    for tree = {
+        circle, draw,
+        s sep+ = 10mm,
+        l sep+ = 6mm,
+        EL/.style = {
+            edge label={node[midway, fill=white, inner sep=2pt, anchor=center]{#1}},
+        },
+        MK/.style = {
+            edge = red
+        },
+        LV/.style = {
+            draw=blue
+        },
+    }
+    [8
+        [1,EL=7]
+        [5,EL=3
+            [2,EL=3
+                [0,EL=2]
+            ]
+            [3,EL=2
+                [0,EL=3]
+            ]
+        ]
+        [2,EL=6
+            [0,EL=2]
+        ]
+        [6,EL=2
+            [0,EL=6]
+            [3,EL=3
+                [0,EL=3]
+                [1,EL=2]
+            ]
+            [4,EL=2
+                [1,EL=3]
+                [2,EL=2,LV
+                    [0,EL=2]
+                ]
+            ]
+        ]
+    ]
+\end{forest}
+\end{center}
+
+Quan sát đồ thị trên, ta có thể dễ dàng thấy được các bộ số sau là những bộ số cần tìm:
+\begin{center}
+    \begin{forest}
+    for tree = {
+        circle, draw,
+        s sep+ = 10mm,
+        l sep+ = 6mm,
+        EL/.style = {
+            edge label={node[midway, fill=white, inner sep=2pt, anchor=center]{#1}},
+        },
+        MK/.style = {
+            edge = red
+        },
+        LV/.style = {
+            draw=blue
+        },
+    }
+    [8
+        [1,EL=7]
+        [5,EL=3,MK
+            [2,EL=3,MK
+                [0,EL=2,MK]
+            ]
+            [3,EL=2,MK
+                [0,EL=3,MK]
+            ]
+        ]
+        [2,EL=6,MK
+            [0,EL=2,MK]
+        ]
+        [6,EL=2,MK
+            [0,EL=6,MK]
+            [3,EL=3,MK
+                [0,EL=3,MK]
+                [1,EL=2]
+            ]
+            [4,EL=2,MK
+                [1,EL=3]
+                [2,EL=2,MK
+                    [0,EL=2,MK]
+                ]
+            ]
+        ]
+    ]
+\end{forest}
+\end{center}
+
+\begin{itemize}
+    \item 3, 3, 2
+    \item 3, 2, 3
+    \item \textbf{6, 2}
+    \item \textbf{2, 6}
+    \item 2, 3, 3
+    \item 2, 2, 2, 2
+\end{itemize}
+Bỏ qua các dãy trùng nhau, ta dễ dàng thấy được \code{2, 6} chính là dãy có số phần tử nhỏ nhất.\\
+{\scriptsize Vẽ mấy cái cây này trong LaTeX khổ lắm các bạn ơi :((((((((}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
