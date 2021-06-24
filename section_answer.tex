@@ -128,7 +128,10 @@ Lưu ý: khi giải một bài toán có sử dụng quy hoạch động, ta c�
 Bạn có thể tham khảo thêm trong khoá học dài 5 tiếng về quy hoạch động của \code{freeCodeCamp} (tiếng Anh): \href{https://www.youtube.com/watch?v=oBt53YbR9Kk}{Youtube: Dynamic Programming - Learn to Solve Algorithmic Problems \& Coding Challenges}. Bài toán trên nằm ở \code{1:52:07}.
 
 \subsubsection{Phân tích bài toán}
-Giả sử ta có \code{a = \{7, 3, 6, 2\}} và \code{n = 8}. Để biết được các phần tử nào cộng lại có giá trị là 8, ta làm theo các bước sau:
+Ta có thể đưa bài toán trên về một dạng tổng quát hơn:\\
+Cho mảng nguyên dương \code a và một số nguyên dương \code{n}. Hãy tìm ra một giỏ được lấy từ các phần tử trong \code a (giỏ giống như tập hợp nhưng các phần tử có thể lặp lại được), sao cho tổng các phần tử của giỏ đó có giá trị bằng \code{n} và cho số lượng phần tử trong giỏ đó là nhỏ nhất?
+
+\textbf{Giả sử ta có \code{a = \{7, 3, 6, 2\}} và \code{n = 8}}. Để biết được các phần tử nào cộng lại có giá trị là 8, ta làm theo các bước sau:
 \begin{itemize}
     \item Giả sử ta có một dãy các phần tử $a_1, a_2, ... \in a$.
     \item Nếu $a_1+a_2+a_3+...=n$ (các $a_i$ có thể trùng nhau) thì ta có $n-a_1-a_2-a_3-...=0$.\par
@@ -136,7 +139,8 @@ Giả sử ta có \code{a = \{7, 3, 6, 2\}} và \code{n = 8}. Để biết đư�
 \end{itemize}
 
 \subsubsection{Mô phỏng thuật toán bằng đồ thị}
-Ta lần lượt lấy 8 trừ cho các phần tử trong \code{a}.
+Giả sử ta có \code{a = \{7, 3, 6, 2\}} và \code{n = 8}.
+Ta lần lượt lấy \code{n = 8} trừ cho các phần tử trong \code{a}.
 
 \begin{center}
 \begin{forest}
@@ -222,8 +226,9 @@ Ta tiếp tục thực hiện cho các node \code{1, 5, 2}  còn lại. Để ti
     ]
 \end{forest}
 \end{center}
-
 Với những hiệu thu được, ta lại tiếp tục đệ quy, lại lấy chúng trừ cho các phần tử trong \code{a}. Nếu hiệu âm, chúng ta sẽ bỏ qua (mình sẽ không vẽ lại).
+
+\textit{Cụ thể: Ở số 1, do nó không thể trừ cho bất cứ phần tử nào trong \code a được nữa (vì nếu trừ hiệu của chúng sẽ âm) nên mình không vẽ lại.}
 
 \begin{center}
     \begin{forest}
@@ -249,6 +254,7 @@ Với những hiệu thu được, ta lại tiếp tục đệ quy, lại lấy 
             ]
             [3,EL=2,LV
                 [0,EL=3]
+                [1,EL=2]
             ]
         ]
         [2,EL=6
@@ -294,6 +300,7 @@ Ta tiếp tục thực hiện đệ quy với bậc cuối cùng
             ]
             [3,EL=2
                 [0,EL=3]
+                [1,EL=2]
             ]
         ]
         [2,EL=6
@@ -316,7 +323,7 @@ Ta tiếp tục thực hiện đệ quy với bậc cuối cùng
 \end{forest}
 \end{center}
 
-Quan sát đồ thị trên, ta có thể dễ dàng thấy được các bộ số sau là những bộ số cần tìm:
+Hoàn thành giải thuật đệ quy, ta thu được đồ thị sau:
 \begin{center}
     \begin{forest}
     for tree = {
@@ -341,6 +348,7 @@ Quan sát đồ thị trên, ta có thể dễ dàng thấy được các bộ s
             ]
             [3,EL=2,MK
                 [0,EL=3,MK]
+                [1,EL=2]
             ]
         ]
         [2,EL=6,MK
@@ -362,7 +370,7 @@ Quan sát đồ thị trên, ta có thể dễ dàng thấy được các bộ s
     ]
 \end{forest}
 \end{center}
-
+Quan sát đồ thị trên, ta có thể dễ dàng thấy được các bộ số sau là những bộ số cần tìm. Chúng đều có tổng bằng 8.
 \begin{itemize}
     \item 3, 3, 2
     \item 3, 2, 3
@@ -371,8 +379,101 @@ Quan sát đồ thị trên, ta có thể dễ dàng thấy được các bộ s
     \item 2, 3, 3
     \item 2, 2, 2, 2
 \end{itemize}
-Bỏ qua các dãy trùng nhau, ta dễ dàng thấy được \code{2, 6} chính là dãy có số phần tử nhỏ nhất.\\
-{\scriptsize Vẽ mấy cái cây này trong LaTeX khổ lắm các bạn ơi :((((((((}
+
+Bỏ qua các dãy trùng nhau, ta dễ dàng thấy được \code{2, 6} chính là dãy có số phần tử nhỏ nhất.
+
+Ta cần xác định kiểu dữ liệu trả về cho giải thuật này. Vì yêu cầu của giải thuật là trả về một dãy các phần tử thoả thoả điều kiện cho trước, nên ta sẽ trả về một mảng.
+
+Ngoài ra ta cũng cần xây dựng điều kiện dừng cho thuật toán này. Rõ ràng chúng ta có thể thấy được có 2 trường hợp cần dừng thuật toán:
+\begin{itemize}
+    \item \code{n < 0}: Nghĩa là ta đã vượt quá giới hạn cho phép trong đệ quy (nhìn vào đồ thị thứ 2, ta có thể thấy trường hợp này: $8 - 2 - 7 = -1$). Lúc này ta sẽ trả về \code{nullptr}.
+    \item \code{n = 0}: nghĩa là ở hàm bên ngoài bài toán đã được giải đúng, và giải thuật đệ quy kết thúc tại đây. Lúc này ta sẽ trả về một mảng rỗng (việc này có ý nghĩa nhằm tiết kiệm code trong lúc cài đặt, các bạn có thể tự quy định và tự cài đặt theo kiểu của riêng mình).
+\end{itemize}
+
+Ta có thể xây dựng một thuật toán đệ quy như sau:
+\begin{enumerate}
+    \item Kiểm tra điều kiện dừng. Nếu thoả, trả về giá trị và thoát ra khỏi hàm.
+    \item Khởi tạo một mảng để chứa dãy các phần tử có giá trị nhỏ nhất.
+    \item Lần lượt lấy \code n trừ cho các phần tử trong \code{a}. Ta tiếp tục gọi hàm đệ quy cho những hiệu số vừa thu được, ghi lại kết quả.
+    \item Với mỗi kết quả thu được, nghĩa là với mỗi dãy có tổng bằng \code{n}, ta kiểm tra xem liệu dãy đó có phải là dãy có số lượng phần tử nhỏ nhất không?
+    \begin{itemize}
+        \item Nếu phải, ta gán lại giá trị cho mảng ở Bước 2 (đây là thuật toán tìm min thông thường).
+        \item Nếu không, ta bỏ qua.
+    \end{itemize}
+    \item Trả về giá trị.
+\end{enumerate}
+
+Đây là bài toán trên được cài đặt bằng C++ với cấp phát bộ nhớ động.
+\inputminted[linenos,breaklines]{cpp}{answer_sources/QuyHoachDong_VetCan.cpp}
+
+\subsubsection{Tối ưu hoá bài toán}
+Tưởng vậy là xong rồi hả my friend? Mình còn chưa thực hiện bước 2 -- đưa nó về quy hoạch động cơ mà :)
+
+Thuật toán đệ quy ở trên chạy khá là chính xác, nhưng nếu dữ liệu đầu vào phức tạp, nó sẽ chạy rấttttttttt lâu.
+Xét lại thuật toán ở trên ta đã cài đặt, có thể dễ dàng thấy được các node được tô màu bị giải đi giải lại nhiều lần, rất là mất thời gian nếu số lượng node lớn. Do đó ta nên sử dụng quy hoạch động để giải. 
+
+\begin{center}
+    \begin{forest}
+    for tree = {
+        circle, draw,
+        s sep+ = 10mm,
+        l sep+ = 6mm,
+        EL/.style = {
+            edge label={node[midway, fill=white, inner sep=2pt, anchor=center]{#1}},
+        },
+        BLC/.style = {
+            draw=blue
+        },
+        RDC/.style = {
+            draw=red
+        },
+    }
+    [8
+        [1,EL=7]
+        [5,EL=3
+            [2,EL=3,BLC
+                [0,EL=2]
+            ]
+            [3,EL=2,RDC
+                [0,EL=3]
+            ]
+        ]
+        [2,EL=6,BLC
+            [0,EL=2]
+        ]
+        [6,EL=2
+            [0,EL=6]
+            [3,EL=3,RDC
+                [0,EL=3]
+                [1,EL=2]
+            ]
+            [4,EL=2
+                [1,EL=3]
+                [2,EL=2,BLC
+                    [0,EL=2]
+                ]
+            ]
+        ]
+    ]
+\end{forest}
+\end{center}
+
+Giả sử cho \code{a = \{1, 2, 5, 25 \}} và \code{n = 100}. Nhìn bằng mắt thường, ta có thể thấy ngay dãy ngắn nhất là \code{25 + 25 + 25 + 25}, nhưng với giải thuật ở trên, nó sẽ chạy rất lâu. Máy mình xài \code{AMD Ryzen 5 PRO 4650U} mà nó giải 12 phút rồi vẫn chưa ra. Sau khi áp dụng quy hoạch động, đáp án được giải ra dưới 1 giây.\\
+\footnote{Chip AMD kia văn phòng mà các bạn đừng nghĩ nó yếu nên chạy lâu. Hiệu năng nó ăn đứt mấy con i5 gaming đời 9-10 dù TDP chỉ bằng 1/2 và có 1 quạt. Đã thử cả stress test và software rendering, đến mình cũng bất ngờ :)}
+
+Tương tự như bài toán Fibonacci các bạn đã được học, để áp dụng quy hoạch động vào giải thuật đệ quy ta làm các bước sau:
+\begin{itemize}
+    \item Thêm một biến mảng vào tham số của hàm. Mảng này sẽ chứa các lời giải cho các bài toán con (phương pháp này gọi là \code {cache}).
+    \item Trước khi thực hiện giải bài toán, ta sẽ kiểm tra xem trong \code{cache} đã chứa lời giải cho bài toán con này chưa? Nếu có, trả về kết quả. Nếu chưa, tiếp tục thực hiện giải thuật đệ quy như bình thường.
+    \item Sau khi thực hiện xong giải thuật đệ quy, ta tiến hành lưu đáp án vừa giải vào mảng \code{cache} để sử dụng cho lần sau.
+\end{itemize}
+Vậy muốn đưa một giải thuật đệ quy về quy hoạch động, ta chỉ cần thêm 2 đoạn code là kiểm tra lời giải đã có chưa, và lưu lời giải vào mảng \code cache nếu đã giải xong.
+
+Đây là bài toán trên được cài đặt theo quy hoạch động. Có chỉnh sửa một tí xíu để phù hợp hơn với cấp phát động
+\inputminted[linenos,breaklines]{cpp}{answer_sources/QuyHoachDong_ToiUu.cpp}
+
+\textit{\footnotesize Mình khuyên các bạn nên xài Python hay Javascipt để học thuật toán vì khi đó bạn sẽ chú tâm đến việc cài đặt thuật toán hơn là cài đặt mấy thứ linh tinh như cấp phát động hay kiểm soát vùng nhớ. Ngay cả khi có xài vector, việc cài đặt bài toán này trong C++ cũng sẽ rất khó khăn}.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
