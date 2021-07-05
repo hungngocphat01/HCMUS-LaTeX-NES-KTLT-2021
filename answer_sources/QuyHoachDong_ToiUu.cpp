@@ -18,6 +18,7 @@ int* TimDayTongNganNhat(int* a, int asize, int n, int& rsize, int** cache_data, 
         return nullptr;
     }
     else if (n == 0) {
+        rsize = 0;
         return new int[0]; 
     }
     // Kiểm tra cache xem thử bài toán con này có được giải chưa

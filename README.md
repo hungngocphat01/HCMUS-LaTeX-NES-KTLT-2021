@@ -8,7 +8,7 @@
 
 # Giới thiệu
 - Repository này chứa mã nguồn tài liệu LaTeX cũng như các đoạn chương trình liên quan đã được sử dụng trong buổi ôn thi cuối kỳ môn Kỹ thuật lập trình (của khoa CNTT) được tổ chức bởi Mảng Điện tử kỹ thuật, CLB Học thuật NES ("CLB"), Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM vào cuối học kỳ 2, năm học 2020 - 2021.
-- Nội dung tài liệu này và các thành phần liên quan, nếu không được trích dẫn, đều là tài sản trí tuệ của CLB, ngoại trừ những thành phần ngầm định đã có chủ sở hữu như thương hiệu, logo, ...
+- Nội dung tài liệu này và các thành phần liên quan, nếu không được trích dẫn, đều là sản phẩm trí tuệ của CLB, ngoại trừ các đề bài tập (cái này thì copy trên mạng về chứ sao tụi mình tự ra được :v) và những thành phần khác ngầm định đã có chủ sở hữu như thương hiệu, logo, ...
 - Cấu trúc:
     - `answer_sources`: mã nguồn các chương trình đã được sử dụng trong tài liệu này.
     - `image`: các hình ảnh được sử dụng trong tài liệu.
@@ -20,6 +20,7 @@
 # Build
 ## Cài đặt Tex Live
 - Tự tham khảo cho mỗi loại hệ điều hành khác nhau.
+- Lưu ý cài đặt đủ các thành phần quan trọng, đặc biệt là các gói ngôn ngữ mở rộng (có support tiếng Việt).
 ## Cài đặt các dependencies
 - Python 3.
 - `pygments` (pip).

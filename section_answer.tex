@@ -1,6 +1,7 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
-Các bạn có thể copy nội dung của các đoạn code trong phần này ở link sau: 
+
+Các bạn có thể copy nội dung của các đoạn code trong phần này trong thư mục \code{answer-sources} ở link sau: \href{https://github.com/hungngocphat01/nes-ktlt-2021}{Github: hungngocphat01/nes-ktlt-2021}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Con trỏ cơ bản}
 \textit{Lưu ý: các địa chỉ của các ô nhớ trong những hình dưới đây chỉ mang tính chất minh hoạ}.
@@ -133,8 +134,8 @@ Cho mảng nguyên dương \code a và một số nguyên dương \code{n}. Hãy
 
 \textbf{Giả sử ta có \code{a = \{7, 3, 6, 2\}} và \code{n = 8}}. Để biết được các phần tử nào cộng lại có giá trị là 8, ta làm theo các bước sau:
 \begin{itemize}
-    \item Giả sử ta có một dãy các phần tử $a_1, a_2, ... \in a$.
-    \item Nếu $a_1+a_2+a_3+...=n$ (các $a_i$ có thể trùng nhau) thì ta có $n-a_1-a_2-a_3-...=0$.\par
+    \item Giả sử ta có một dãy các phần tử  $a = {a_1, a_2, a_3, ..., a_m}$.
+    \item Nếu $a_i+a_j+a_k+...=n$ ($0 \le i \le j \le k \le ... < n $) thì ta có $n-a_i-a_j-a_k-...=0$.\par
     $\Rightarrow$ Phương pháp để biết được liệu $n$ có thể phân tích thành các phần tử trong $a$ hay không là đem $n$ lần lượt trừ đi các phần tử trong $a$. Nếu $n$ trừ cho dãy các phần tử nào trong $a$ mà ra $0$ thì ta biết được dãy đó có tổng bằng chính $n$.
 \end{itemize}
 
@@ -194,7 +195,7 @@ for tree = {
 \end{forest}
 \end{center}
 
-Ta tiếp tục thực hiện cho các node \code{1, 5, 2}  còn lại. Để tiết kiệm không gian, mình sẽ không ghi các node có giá trị âm.
+Ta tiếp tục thực hiện cho các node \code{1, 5, 2}  còn lại. Để tiết kiệm không gian, tụi mình sẽ không ghi các node có giá trị âm.
 
 \begin{center}
     \begin{forest}
@@ -226,9 +227,9 @@ Ta tiếp tục thực hiện cho các node \code{1, 5, 2}  còn lại. Để ti
     ]
 \end{forest}
 \end{center}
-Với những hiệu thu được, ta lại tiếp tục đệ quy, lại lấy chúng trừ cho các phần tử trong \code{a}. Nếu hiệu âm, chúng ta sẽ bỏ qua (mình sẽ không vẽ lại).
+Với những hiệu thu được, ta lại tiếp tục đệ quy, lại lấy chúng trừ cho các phần tử trong \code{a}. Nếu hiệu âm, chúng ta sẽ bỏ qua (tụi mình sẽ không vẽ lại).
 
-\textit{Cụ thể: Ở số 1, do nó không thể trừ cho bất cứ phần tử nào trong \code a được nữa (vì nếu trừ hiệu của chúng sẽ âm) nên mình không vẽ lại.}
+\textit{Cụ thể: Ở số 1, do nó không thể trừ cho bất cứ phần tử nào trong \code a được nữa (vì nếu trừ hiệu của chúng sẽ âm) nên tụi mình không vẽ lại.}
 
 \begin{center}
     \begin{forest}
@@ -407,7 +408,7 @@ Ta có thể xây dựng một thuật toán đệ quy như sau:
 \inputminted[linenos,breaklines]{cpp}{answer_sources/QuyHoachDong_VetCan.cpp}
 
 \subsubsection{Tối ưu hoá bài toán}
-Tưởng vậy là xong rồi hả my friend? Mình còn chưa thực hiện bước 2 -- đưa nó về quy hoạch động cơ mà :)
+Tưởng vậy là xong rồi hả my friend? Tụi mình còn chưa thực hiện bước 2 -- đưa nó về quy hoạch động cơ mà :)
 
 Thuật toán đệ quy ở trên chạy khá là chính xác, nhưng nếu dữ liệu đầu vào phức tạp, nó sẽ chạy rấttttttttt lâu.
 Xét lại thuật toán ở trên ta đã cài đặt, có thể dễ dàng thấy được các node được tô màu bị giải đi giải lại nhiều lần, rất là mất thời gian nếu số lượng node lớn. Do đó ta nên sử dụng quy hoạch động để giải. 
@@ -434,8 +435,9 @@ Xét lại thuật toán ở trên ta đã cài đặt, có thể dễ dàng th�
             [2,EL=3,BLC
                 [0,EL=2]
             ]
-            [3,EL=2,RDC
+            [3,EL=3,RDC
                 [0,EL=3]
+                [1,EL=2]
             ]
         ]
         [2,EL=6,BLC
@@ -458,21 +460,22 @@ Xét lại thuật toán ở trên ta đã cài đặt, có thể dễ dàng th�
 \end{forest}
 \end{center}
 
-Giả sử cho \code{a = \{1, 2, 5, 25 \}} và \code{n = 100}. Nhìn bằng mắt thường, ta có thể thấy ngay dãy ngắn nhất là \code{25 + 25 + 25 + 25}, nhưng với giải thuật ở trên, nó sẽ chạy rất lâu. Máy mình xài \code{AMD Ryzen 5 PRO 4650U} mà nó giải 12 phút rồi vẫn chưa ra. Sau khi áp dụng quy hoạch động, đáp án được giải ra dưới 1 giây.\\
-\footnote{Chip AMD kia văn phòng mà các bạn đừng nghĩ nó yếu nên chạy lâu. Hiệu năng nó ăn đứt mấy con i5 gaming đời 9-10 dù TDP chỉ bằng 1/2 và có 1 quạt. Đã thử cả stress test và software rendering, đến mình cũng bất ngờ :)}
+Giả sử cho \code{a = \{1, 2, 5, 25 \}} và \code{n = 100}. Nhìn bằng mắt thường, ta có thể thấy ngay dãy ngắn nhất là \code{25 + 25 + 25 + 25}, nhưng với giải thuật ở trên, nó sẽ chạy rất lâu. Máy mình xài \code{AMD Ryzen 5 PRO 4650U} mà nó giải 12 phút rồi vẫn chưa ra. Sau khi áp dụng quy hoạch động, đáp án được giải ra dưới 1 giây.
+\footnote{\scriptsize Chip AMD kia văn phòng nhưng mà các bạn đừng nghĩ nó yếu nên giải lâu. Hiệu năng nó ăn đứt mấy con i5 gaming đời 9-10 dù TDP chỉ bằing 1/2 và có 1 quạt. Đã thử cả stress test (benchmark) và software rendering (thực tế), đến tụi mình cũng bất ngờ :)}
 
 Tương tự như bài toán Fibonacci các bạn đã được học, để áp dụng quy hoạch động vào giải thuật đệ quy ta làm các bước sau:
 \begin{itemize}
-    \item Thêm một biến mảng vào tham số của hàm. Mảng này sẽ chứa các lời giải cho các bài toán con (phương pháp này gọi là \code {cache}).
+    \item Thêm một biến mảng vào tham số của hàm. Mảng này sẽ chứa các \textit{lời giải cho các bài toán con} (phương pháp này gọi là \code{memoization} hoặc là \code {cache}). Mỗi phần tử của mảng này có KDL trùng với KDL \textit{trả về của giải thuật đệ quy}.
     \item Trước khi thực hiện giải bài toán, ta sẽ kiểm tra xem trong \code{cache} đã chứa lời giải cho bài toán con này chưa? Nếu có, trả về kết quả. Nếu chưa, tiếp tục thực hiện giải thuật đệ quy như bình thường.
     \item Sau khi thực hiện xong giải thuật đệ quy, ta tiến hành lưu đáp án vừa giải vào mảng \code{cache} để sử dụng cho lần sau.
 \end{itemize}
-Vậy muốn đưa một giải thuật đệ quy về quy hoạch động, ta chỉ cần thêm 2 đoạn code là kiểm tra lời giải đã có chưa, và lưu lời giải vào mảng \code cache nếu đã giải xong.
+Vậy muốn đưa một giải thuật đệ quy thông thường về quy hoạch động, ta chỉ cần thêm 2 đoạn code là kiểm tra lời giải đã có chưa, và lưu lời giải vào mảng \code cache nếu đã giải xong.
+\textit{Lưu ý: memoization chỉ là một phương pháp để giải quy hoạch động. Có rất nhiều hướng tiếp cận khác nhau cho quy hoạch động và sẽ có những bài toán mà memoization không thể thực hiện được}.
 
 Đây là bài toán trên được cài đặt theo quy hoạch động. Có chỉnh sửa một tí xíu để phù hợp hơn với cấp phát động
 \inputminted[linenos,breaklines]{cpp}{answer_sources/QuyHoachDong_ToiUu.cpp}
 
-\textit{\footnotesize Mình khuyên các bạn nên xài Python hay Javascipt để học thuật toán vì khi đó bạn sẽ chú tâm đến việc cài đặt thuật toán hơn là cài đặt mấy thứ linh tinh như cấp phát động hay kiểm soát vùng nhớ. Ngay cả khi có xài vector, việc cài đặt bài toán này trong C++ cũng sẽ rất khó khăn}.
+{\scriptsize Tụi mình khuyên các bạn nên xài Python hay Javascipt để học thuật toán vì khi đó bạn sẽ chú tâm đến việc cài đặt thuật toán hơn là cài đặt mấy thứ linh tinh như cấp phát động hay kiểm soát vùng nhớ. Ngay cả khi có xài vector, việc cài đặt bài toán này trong C++ cũng sẽ rất khó khăn}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

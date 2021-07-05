@@ -1,8 +1,8 @@
-PDFLATEX=pdflatex 
-LFLAGS=-shell-escape
+LATEX=latexmk
+LFLAGS=--shell-escape -synctex=1 -interaction=nonstopmode -file-line-error -pdf
 OUTDIR=build
+TARGET=main
 
-main.pdf: main.tex
-	$(PDFLATEX) $(LFLAGS) -output-directory=$(OUTDIR) $^
-clean:
-	rm build/*
+$(TARGET): main.tex
+	latexmk $(LFLAGS) -outdir=$(OUTDIR) $^
+	mv $(OUTDIR)/$(patsubst %.tex,%.pdf,$^) $(OUTDIR)/$@

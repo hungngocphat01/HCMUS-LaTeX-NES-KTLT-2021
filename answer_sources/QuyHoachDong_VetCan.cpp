@@ -27,6 +27,7 @@ int* TimDayTongNganNhat(int* a, int asize, int n, int& rsize) {
         return nullptr;
     }
     else if (n == 0) {
+        rsize = 0;
         return new int[0]; // mảng rỗng
     }
     // Dãy tổng ngắn nhất cần tìm, hiện tại là null (tức chưa tìm thấy)
