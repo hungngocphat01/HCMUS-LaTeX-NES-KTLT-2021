@@ -1,81 +1,72 @@
-#include <iostream>
-#include <cstring>
-using namespace std;
+#include <stdio.h>
+#include <malloc.h>
 
-// Hàm sao chép mảng a ra một mảng khác, và thêm x vào mảng mới đó (không huỷ a)
-int* cloneAdd(int* a, int size, int x) {
-    int* b = new int[size + 1];
-    memcpy(b, a, sizeof(int) * size);
-    b[size] = x;
-    return b;
+int sumOfRow(int n, int** T, int m) {
+    int sum = 0;
+    for (int i = 0; i < m; i++) sum += T[n - 1][i];
+    return sum;
 }
 
-// Giống như bài toán Fibonacci các bạn đã đc học, ở đây mình sẽ thêm một tham số vào hàm này để lưu lại kq tính toán của các bài toán nhỏ hơn.
-// Do kết quả của thuật toán này trả về một dãy, nên tham số cache của mình sẽ là dãy của các dãy, chính là mảng 2 chiều
-// Ngoài ra mình cũng cần 1 tham số khác để chứa kích thước mảng của các dãy bên trong tham số cache
-int* TimDayTongNganNhat(int* a, int asize, int n, int& rsize, int** cache_data, int* cache_size) {
-    if (n < 0) {
-        return nullptr;
-    }
-    else if (n == 0) {
-        rsize = 0;
-        return new int[0]; 
-    }
-    // Kiểm tra cache xem thử bài toán con này có được giải chưa
-    if (cache_data[n] != nullptr) {
-        rsize = cache_size[n];
-        return cache_data[n];
-    }
-    // Nếu chưa, tiếp tục giải như cũ
-    int* dayNganNhat = nullptr;
-    int soPtDayNganNhat = 0;
+void topDown(int n, int** T, int *a, int m) {
+    int sum = sumOfRow(n, T, m);
+    if (sum >= 0) return;
 
-    for (int i = 0; i < asize; i++) {
-        int hieu = n - a[i];
-        int soPtDayTong = 0;
-        // dayTongH là dãy có tổng lại bằng hiệu n - a[i]
-        int* dayTongH = TimDayTongNganNhat(a, asize, hieu, soPtDayTong, cache_data, cache_size);
-        if (dayTongH != nullptr) {
-            // Nhận xét: nếu ở đây ta thêm a[i] trực tiếp vào dayTongH như lần trước, thì khi đó dayTongH sẽ có tổng bằng n, chứ không phải là n-a[i] nữa, mà dãy này đã được lưu lại trong tham số cache_data lúc ta chạy hàm đệ quy nên nếu ta giải phóng nó và cấp phát lại thì cái cache đã được lưu khi nãy sẽ bị trỏ tới một vùng nhớ không tồn tại, đó là lý do ta nên cấp phát lại một mảng MỚI HOÀN TOÀN, không đá động gì tới mảng được trả về bởi hàm đệ quy.
-            int* dayTongN = cloneAdd(dayTongH, soPtDayTong, a[i]); // dãy này có tổng lại bằng n
-            soPtDayTong++;
-            // Còn lại làm tương tự
-            if (dayNganNhat == nullptr || soPtDayTong < soPtDayNganNhat) {
-                dayNganNhat = dayTongN;
-                soPtDayNganNhat = soPtDayTong;
-            }
-            else {
-                // Ta không được giải phóng dayTongH hay dayNganNhat vì khi nãy nó đã được lưu trong cache
-                // Cache sẽ được giải phóng từ hàm main
-                delete[] dayTongN;
-            }
+    // truong hop co ban
+    for (int i = 0; i < m; i++) {
+        if (a[i] == n) {
+            for (int j = 0; j < m; j++) T[n - 1][j] = 0;
+            T[n - 1][i] = 1;
+            return;
         }
     }
-    // Sau khi giải xong bài toán con, ta lưu lại kq vào cache 
-    cache_data[n] = dayNganNhat;
-    cache_size[n] = soPtDayNganNhat;
-    rsize = soPtDayNganNhat;
-    return dayNganNhat;
+
+    // truong hop khong co ban
+    int minSum = n + 1;
+    int toiUu = -1;
+    for (int i = 0; i < m; i++) {
+        if (n < a[i]) break;
+        topDown(n - a[i], T, a, m);
+        sum = sumOfRow(n - a[i], T, m);
+        if (sum > 0 && sum < minSum) {
+            minSum = sum;
+            toiUu = i;
+        }
+    }
+
+    for (int i = 0; i < m; i++) T[n - 1][i] = 0;
+    if (toiUu > -1) {
+        T[n - 1][toiUu] += 1;
+        for (int i = 0; i < m; i++) T[n - 1][i] += T[n - a[toiUu] - 1][i];
+    }
 }
 
-int main() {
-    int a[] = {25, 5, 2, 1};
-    int kqsize;
-    int csz = 200;
-    // Mảng cache phải có kích thước bằng với n + 1 (n là giá tiền của sản phẩm trong đề bài)
-    // Ở đây mình đặt 200 cho tiện
-    int** cache_data = new int*[csz] { nullptr };
-    int* cache_size = new int[csz] { 0 };
-    
-    int* kq = TimDayTongNganNhat(a, 4, 100, kqsize, cache_data, cache_size);
-    for (int i = 0; i < kqsize; i++) {
-        cout << kq[i] << " ";
+void btQuyHoachDong() {
+    int a[] = {2,3,5};
+    int m = 3;
+    int n = 11;
+
+    int** T = (int**)malloc(sizeof(int*) * n);
+    for (int i = 0; i < n; i++) {
+        T[i] = (int*)malloc(sizeof(int) * m);
+        for (int j = 0; j < m; j++) T[i][j] = -1;//-1 chua giai
     }
 
-    for (int i = 0; i < 200; i++) {
-        delete[] cache_data[i];
+    topDown(n, T, a, m);
+
+    // lay ket qua tu bang tra T roi in ra man hinh
+    if (sumOfRow(n, T, m) == 0) {
+        printf("Khong co dap an cho n = %d\n", n);
     }
-    delete[] cache_data;
-    delete[] cache_size;
-    // Ta không delete kq vì nó đã được cache bên trong cache_data, mà khi nãy đã được xoá rồi
+    else {
+        printf("Dap an cho n = %d\n", n);
+        printf("Loai xu: ");
+        for (int i = 0; i < m; i++) {
+            printf("%d\t", a[i]);
+        }
+        printf("\n");
+        printf("So xu  : ");
+        for (int i = 0; i < m; i++) {
+            printf("%d\t", T[n - 1][i]);
+        }
+    }
 }
