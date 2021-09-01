@@ -30,20 +30,24 @@ void List_removeAfterNode(List &list, Node*targetNode) {
 }
 
 void makeOdd(List& list) {
-    // tach so chan
-    int newData1;
-    int newData2;
-    Node* newNode1;
-    Node* newNode2;
-    Node* prevNode = NULL;
-    Node* nextNode;
-    Node* node = list.head;
+    // Đoạn code tách số chẵn
+    int newData1;// Lưu giá trị số lẻ thứ nhất sau khi tách
+    int newData2;// Lưu giá trị số lẻ thứ hai sau khi tách
+    Node* newNode1;// Node số lẻ thứ nhất sau khi tách
+    Node* newNode2;// Node số lẻ thứ hai sau khi tách
+
+    // Bộ 3 biến prevNode, nextNode, node thường được đi chung trong
+    // những thao tác duyệt từng node trong List phức tạp (Cần xóa hay thêm node)
+    Node* prevNode = NULL;// Lưu node trước của node đang duyệt
+    Node* nextNode;// Lưu node kế tiếp cần duyệt
+    Node* node = list.head;// Node cần duyệt
     while (node != NULL) {
         nextNode = node->next;
-        if (node->data % 2 == 0) {
+        if (node->data % 2 == 0) {// Nếu là node là số chẵn
             newData1 = node->data / 2;
 
-            if (prevNode != NULL)List_removeAfterNode(list, prevNode);
+            // Xóa node số chẵn đang duyệt
+            if (prevNode != NULL) List_removeAfterNode(list, prevNode);
             else List_removeHead(list);
 
             if (newData1 % 2 != 0)
@@ -65,26 +69,25 @@ void makeOdd(List& list) {
             prevNode = newNode2;
             node = nextNode;
         }
-        else {
+        else {// Ngược lại, nếu là node là số lẻ
             prevNode = node;
             node = nextNode;
         }
     }
 
-    // loai node trung nhau lien tiep
-    int lastData = -1;
+    // Loại node trùng nhau liên tiếp
+    // Tận dụng lại 3 biến prevNode, nextNode, node
     prevNode = NULL;
     nextNode;
     node = list.head;
     while (node != NULL) {
-        if (node->data == lastData) {
+        if (prevNode!=NULL && node->data == prevNode->data) {
             nextNode = node->next;
             List_connectNode(prevNode, nextNode);
             List_deleteNode(node);
             node = nextNode;
         }
         else {
-            lastData = node->data;
             prevNode = node;
             node = node->next;
         }
