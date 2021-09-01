@@ -33,7 +33,7 @@ Do \code{p} là một con trỏ, trỏ đến \code{a} nên \code{*p} chính là
 Ta thấy \code{*(a+2)} chính là \code{a[2]}. \\
 Nếu ta đặt \code{u = *(a+2)} thì \code{(*(a+2)+1)} sẽ trở thành \code{*(u+1)}, chính là \code{u[1]}.\\
 Mà vì \code{u = *(a+2) = a[2]} nên \code{u[1]} chính là \code{a[2][1]}.\\
-Giá trị tại vị trí \code{a[2][1]} chính là \code{1}.
+Giá trị tại vị trí \code{a[2][1]} chính là \code{5}.
 
 Trên đây là một cách giải thích theo phong cách ``toán học''. Nếu các bạn muốn một cách giải thích theo bản chất của con trỏ có thể tham khảo hình dưới đây (tự tham khảo):
 \begin{figure*}
@@ -111,13 +111,13 @@ void recursiveSelectionSort(Node* head);
 \inputminted[linenos]{cpp}{answer_sources/DeQuy.cpp}
 
 \subsection{Quy hoạch động}
-Lưu ý: khi giải một bài toán có sử dụng quy hoạch động, ta cần làm 2 bước sau:
+Vì quy hoạch động ở mức độ nhập môn chỉ là một bài toán đệ quy đã được tối ưu, nên các bạn phải có ý tưởng để giải bài toán đó bằng đệ quy thông thường trước. Nhìn chung, khi giải một bài toán có sử dụng quy hoạch động, ta cần làm 2 bước sau:
 \begin{itemize}
-	\item Làm theo phương pháp vét cạn trước:
+	\item Đưa ra ý tưởng giải bài toán bằng phương pháp vét cạn (đệ quy thông thuờng) trước:
 		\begin{itemize}
 			\item Thử làm bài toán đó bằng tay và rút ra thuật toán thực hiện.
 			\item Mô hình hoá thứ tự các bước thực hiện dưới dạng đồ thị.
-			\item Cài đặt thuật toán bằng đệ quy.
+			\item Trình bày thuật toán bằng đệ quy.
 		\end{itemize}
 	\item Tối ưu hoá:
 		\begin{itemize}
@@ -135,7 +135,7 @@ Cho mảng nguyên dương \code a và một số nguyên dương \code{n}. Hãy
 \textbf{Giả sử ta có \code{a = \{7, 3, 6, 2\}} và \code{n = 8}}. Để biết được các phần tử nào cộng lại có giá trị là 8, ta làm theo các bước sau:
 \begin{itemize}
     \item Giả sử ta có một dãy các phần tử  $a = {a_1, a_2, a_3, ..., a_m}$.
-    \item Nếu $a_i+a_j+a_k+...=n$ ($0 \le i \le j \le k \le ... < n $) thì ta có $n-a_i-a_j-a_k-...=0$.\par
+    \item Nếu $a_i+a_j+a_k+...=n$ ($0 \le i \le j \le k \le ... < m $) thì ta có $n-a_i-a_j-a_k-...=0$.\par
     $\Rightarrow$ Phương pháp để biết được liệu $n$ có thể phân tích thành các phần tử trong $a$ hay không là đem $n$ lần lượt trừ đi các phần tử trong $a$. Nếu $n$ trừ cho dãy các phần tử nào trong $a$ mà ra $0$ thì ta biết được dãy đó có tổng bằng chính $n$.
 \end{itemize}
 
@@ -383,35 +383,8 @@ Quan sát đồ thị trên, ta có thể dễ dàng thấy được các bộ s
 
 Bỏ qua các dãy trùng nhau, ta dễ dàng thấy được \code{2, 6} chính là dãy có số phần tử nhỏ nhất.
 
-Ta cần xác định kiểu dữ liệu trả về cho giải thuật này. Vì yêu cầu của giải thuật là trả về một dãy các phần tử thoả thoả điều kiện cho trước, nên ta sẽ trả về một mảng.
-
-Ngoài ra ta cũng cần xây dựng điều kiện dừng cho thuật toán này. Rõ ràng chúng ta có thể thấy được có 2 trường hợp cần dừng thuật toán:
-\begin{itemize}
-    \item \code{n < 0}: Nghĩa là ta đã vượt quá giới hạn cho phép trong đệ quy (nhìn vào đồ thị thứ 2, ta có thể thấy trường hợp này: $8 - 2 - 7 = -1$). Lúc này ta sẽ trả về \code{nullptr}.
-    \item \code{n = 0}: nghĩa là ở hàm bên ngoài bài toán đã được giải đúng, và giải thuật đệ quy kết thúc tại đây. Lúc này ta sẽ trả về một mảng rỗng (việc này có ý nghĩa nhằm tiết kiệm code trong lúc cài đặt, các bạn có thể tự quy định và tự cài đặt theo kiểu của riêng mình).
-\end{itemize}
-
-Ta có thể xây dựng một thuật toán đệ quy như sau:
-\begin{enumerate}
-    \item Kiểm tra điều kiện dừng. Nếu thoả, trả về giá trị và thoát ra khỏi hàm.
-    \item Khởi tạo một mảng để chứa dãy các phần tử có giá trị nhỏ nhất.
-    \item Lần lượt lấy \code n trừ cho các phần tử trong \code{a}. Ta tiếp tục gọi hàm đệ quy cho những hiệu số vừa thu được, ghi lại kết quả.
-    \item Với mỗi kết quả thu được, nghĩa là với mỗi dãy có tổng bằng \code{n}, ta kiểm tra xem liệu dãy đó có phải là dãy có số lượng phần tử nhỏ nhất không?
-    \begin{itemize}
-        \item Nếu phải, ta gán lại giá trị cho mảng ở Bước 2 (đây là thuật toán tìm min thông thường).
-        \item Nếu không, ta bỏ qua.
-    \end{itemize}
-    \item Trả về giá trị.
-\end{enumerate}
-
-Đây là bài toán trên được cài đặt bằng C++ với cấp phát bộ nhớ động.
-\inputminted[linenos,breaklines]{cpp}{answer_sources/QuyHoachDong_VetCan.cpp}
-
-\subsubsection{Tối ưu hoá bài toán}
-Tưởng vậy là xong rồi hả my friend? Tụi mình còn chưa thực hiện bước 2 -- đưa nó về quy hoạch động cơ mà :)
-
-Thuật toán đệ quy ở trên chạy khá là chính xác, nhưng nếu dữ liệu đầu vào phức tạp, nó sẽ chạy rấttttttttt lâu.
-Xét lại thuật toán ở trên ta đã cài đặt, có thể dễ dàng thấy được các node được tô màu bị giải đi giải lại nhiều lần, rất là mất thời gian nếu số lượng node lớn. Do đó ta nên sử dụng quy hoạch động để giải. 
+\subsubsection{Tối ưu hoá bài toán bằng bảng tra lời giải}
+Xét lại mô hình ở trên ta đã mô tả, có thể dễ dàng thấy được các node được tô màu bị giải đi giải lại nhiều lần, rất là mất thời gian nếu số lượng node lớn. Do đó ta nên sử dụng quy hoạch động (bảng tra lời giải) để giải. 
 
 \begin{center}
     \begin{forest}
@@ -460,19 +433,20 @@ Xét lại thuật toán ở trên ta đã cài đặt, có thể dễ dàng th�
 \end{forest}
 \end{center}
 
-Giả sử cho \code{a = \{1, 2, 5, 25 \}} và \code{n = 100}. Nhìn bằng mắt thường, ta có thể thấy ngay dãy ngắn nhất là \code{25 + 25 + 25 + 25}, nhưng với giải thuật ở trên, nó sẽ chạy rất lâu. Máy mình xài \code{AMD Ryzen 5 PRO 4650U} mà nó giải 12 phút rồi vẫn chưa ra. Sau khi áp dụng quy hoạch động, đáp án được giải ra dưới 1 giây.
+Giả sử cho \code{a = \{1, 2, 5, 25 \}} và \code{n = 100}. Nhìn bằng mắt thường, ta có thể thấy ngay dãy ngắn nhất là \code{25 + 25 + 25 + 25}, nhưng với giải thuật ở trên, nó sẽ chạy rất lâu nếu không dùng quy hoạch động. Máy mình xài \code{AMD Ryzen 5 PRO 4650U} mà nó giải 12 phút rồi vẫn chưa ra. Sau khi áp dụng quy hoạch động, đáp án được giải ra dưới 1 giây.
 \footnote{\scriptsize Chip AMD kia văn phòng nhưng mà các bạn đừng nghĩ nó yếu nên giải lâu. Hiệu năng nó ăn đứt mấy con i5 gaming đời 9-10 dù TDP chỉ bằing 1/2 và có 1 quạt. Đã thử cả stress test (benchmark) và software rendering (thực tế), đến tụi mình cũng bất ngờ :)}
 
-Tương tự như bài toán Fibonacci các bạn đã được học, để áp dụng quy hoạch động vào giải thuật đệ quy ta làm các bước sau:
+Chúng ta áp dụng quy hoạch động vào giải thuật đệ quy theo các bước sau:
 \begin{itemize}
-    \item Thêm một biến mảng vào tham số của hàm. Mảng này sẽ chứa các \textit{lời giải cho các bài toán con} (phương pháp này gọi là \code{memoization} hoặc là \code {cache}). Mỗi phần tử của mảng này có KDL trùng với KDL \textit{trả về của giải thuật đệ quy}.
+    \item Thêm một biến mảng vào tham số của hàm. Mảng này sẽ chứa các \textit{lời giải cho các bài toán con} (phương pháp này gọi là \code{memoization} hoặc là \code {cache}). Mỗi phần tử của mảng này là một mảng lưu số đồng xu mỗi loại.
     \item Trước khi thực hiện giải bài toán, ta sẽ kiểm tra xem trong \code{cache} đã chứa lời giải cho bài toán con này chưa? Nếu có, trả về kết quả. Nếu chưa, tiếp tục thực hiện giải thuật đệ quy như bình thường.
     \item Sau khi thực hiện xong giải thuật đệ quy, ta tiến hành lưu đáp án vừa giải vào mảng \code{cache} để sử dụng cho lần sau.
 \end{itemize}
 Vậy muốn đưa một giải thuật đệ quy thông thường về quy hoạch động, ta chỉ cần thêm 2 đoạn code là kiểm tra lời giải đã có chưa, và lưu lời giải vào mảng \code cache nếu đã giải xong.
 \textit{Lưu ý: memoization chỉ là một phương pháp để giải quy hoạch động. Có rất nhiều hướng tiếp cận khác nhau cho quy hoạch động và sẽ có những bài toán mà memoization không thể thực hiện được}.
 
-Đây là bài toán trên được cài đặt theo quy hoạch động. Có chỉnh sửa một tí xíu để phù hợp hơn với cấp phát động
+
+Dưới đây là bài toán trên được cài đặt theo quy hoạch động:
 \inputminted[linenos,breaklines]{cpp}{answer_sources/QuyHoachDong_ToiUu.cpp}
 
 {\scriptsize Tụi mình khuyên các bạn nên xài Python hay Javascipt để học thuật toán vì khi đó bạn sẽ chú tâm đến việc cài đặt thuật toán hơn là cài đặt mấy thứ linh tinh như cấp phát động hay kiểm soát vùng nhớ. Ngay cả khi có xài vector, việc cài đặt bài toán này trong C++ cũng sẽ rất khó khăn}.
