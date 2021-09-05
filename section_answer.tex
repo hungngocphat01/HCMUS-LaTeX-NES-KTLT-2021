@@ -27,13 +27,13 @@ Tương tự, \code{cout << *(a + 1);} là \code{cout << a[1]}, nên kết quả
 \end{figure}
 
 Do \code{p} là một con trỏ, trỏ đến \code{a} nên \code{*p} chính là \code{a}. \\
-\code{(*p)[4]} tương đương với \code{a[4]}, \code{*(*p + 1)} tương đương với \code{*(a + 1)}, chính là \code{a[1]}. Tự suy luận, ta có kết quả là \code{7}.
+\code{(*p)[4]} tương đương với \code{a[4]}, \code{*(*p + 1)} tương đương với \code{*(a + 1)}, chính là \code{a[1]}. Tự suy luận, ta có kết quả là \code{5}.
 
 \subsubsection{Câu d}
-Ta thấy \code{*(a+2)} chính là \code{a[2]}. \\
-Nếu ta đặt \code{u = *(a+2)} thì \code{(*(a+2)+1)} sẽ trở thành \code{*(u+1)}, chính là \code{u[1]}.\\
-Mà vì \code{u = *(a+2) = a[2]} nên \code{u[1]} chính là \code{a[2][1]}.\\
-Giá trị tại vị trí \code{a[2][1]} chính là \code{5}.
+Ta thấy \code{*(a+1)} chính là \code{a[1]}. \\
+Nếu ta đặt \code{u = *(a+1)} thì \code{(*(a+1)+2)} sẽ trở thành \code{*(u+2)}, chính là \code{u[2]}.\\
+Mà vì \code{u = *(a+1) = a[1]} nên \code{u[2]} chính là \code{a[1][2]}.\\
+Giá trị tại vị trí \code{a[1][2]} chính là \code{1}.
 
 Trên đây là một cách giải thích theo phong cách ``toán học''. Nếu các bạn muốn một cách giải thích theo bản chất của con trỏ có thể tham khảo hình dưới đây (tự tham khảo):
 \begin{figure*}

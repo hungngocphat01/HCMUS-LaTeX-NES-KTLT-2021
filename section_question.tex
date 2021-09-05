@@ -10,20 +10,20 @@ float* p = &a;
 cout << a;
 \end{minted}
     \item \begin{minted}{cpp}
-int a[] = {2, 7, 1, 6, 4};
+int a[] = {2, 5, 7, 1, 6};
 int* p = a;
 *(p + 1) += *a;
 cout << *(a + 1);
 \end{minted}
     \item \begin{minted}{cpp}
-int a[] = {2, 7, 1, 6, 4};
+int a[] = {2, 5, 7, 1, 6};
 int** p = &a;
 (*p)[4] = *((*p) + 1);
 cout << a[4] << endl;
 \end{minted}
     \item \begin{minted}{cpp}
 int a[][3] = { {4, 7, 2}, {5, 8, 1} };
-cout << *(*(a + 2) + 1);
+cout << *(*(a + 1) + 2);
 \end{minted}
 \end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,7 +48,7 @@ struct Node {
     Node *next;
 }
 \end{minted}
-Hãy viết hàm \mintinline{cpp}{void makeOdd(List &list);} xử lý các số chẵn trong danh sách bằng cách phân tách số chẵn thành tổng 2 số lẻ có giá trị cách nhau không quá 2 đơn vị (thứ tự từ bé đến lớn), đồng thời sau đó loại bỏ các Node có dữ liệu giống nhau nằm liền nhau.
+Hãy viết hàm \mintinline{cpp}{void makeOdd(List &list);} xử lý các số chẵn trong danh sách bằng cách phân tách số chẵn thành tổng 2 số lẻ có giá trị cách nhau không quá 2 đơn vị (thứ tự từ bé đến lớn)(Không dùng lại node số chẵn, mà tạo lại 2 node mới cho số lẻ), đồng thời sau đó loại bỏ các Node có dữ liệu giống nhau nằm liền nhau.
 \begin{minted}{text}
 Input:  3   8   6   1
 Output: 3   5   3   1
@@ -56,16 +56,16 @@ Output: 3   5   3   1
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{image/q_DSLK.png}
+\includegraphics[width=0.4\textwidth]{image/q_DSLK.png}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Ngăn xếp, hàng đợi}
 \subsubsection{Ngăn xếp}
 \textit{Bài toán bên dưới nằm trong Interview Preparation Kit của \code{hackerrank}, nên các bạn có thể hình dung khi phỏng vấn xin việc thì những bài toán họ cho các bạn cũng nằm ở mức độ tương tự như thế này. Link: \href{https://www.hackerrank.com/challenges/balanced-brackets/}{Balanced Brackets}}.
 
-Cho một chuỗi chứa các cặp dấu ngoặc \code{() [] {}}. Một chuỗi các dấu ngoặc được gọi là ``hợp lệ'' nếu như với mỗi dấu mở ngoặc thì nó sẽ có một dấu đóng ngoặc cùng loại tương ứng.
+Cho một chuỗi chứa các cặp dấu ngoặc \code{() [] \{\}}. Một chuỗi các dấu ngoặc được gọi là ``hợp lệ'' nếu như với mỗi dấu mở ngoặc thì nó sẽ có một dấu đóng ngoặc cùng loại tương ứng.
 
-Ví dụ: các chuỗi sau là hợp lệ: \code{()[]{}, {[()]}, ([]{}), [{(){}}], ...}. 
+Ví dụ: các chuỗi sau là hợp lệ: \code{()[]\{\}, \{[()]\}, ([]\{\}), [\{()\{\}\}], ...}. 
 
 Hãy thực hiện các yêu cầu sau:
 \begin{enumerate}[label=\alph*.]
@@ -91,7 +91,7 @@ struct Node {
 Hãy viết \textbf{hàm đệ quy} Selection Sort để sắp xếp danh sách liên kết trên tăng dần?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Quy hoạch động}
-Cho một giỏ có vô hạn đồng xu gồm nhiều mệnh giá khác nhau, các loại mệnh giá được lưu trong một mảng \code{int a[]} có kích thước \code{m}. Cho một món hàng có giá tiền là \code{n} (xu), hãy tìm ra cách lấy các đồng xu từ giỏ trên (với mỗi mệnh giá có thể lấy một hoặc nhiều đồng xu) để trả tiền cho món hàng đó sao cho \textit{số lượng đồng xu là nhỏ nhất}?
+Cho một giỏ có vô hạn đồng xu gồm nhiều mệnh giá khác nhau, các loại mệnh giá được lưu trong một mảng \code{int a[]} có kích thước \code{m} (mảng được sắp xếp tăng dần). Cho một món hàng có giá tiền là \code{n} (xu), hãy tìm ra cách lấy các đồng xu từ giỏ trên (với mỗi mệnh giá có thể lấy một hoặc nhiều đồng xu) để trả tiền cho món hàng đó sao cho \textit{số lượng đồng xu là nhỏ nhất}?
 
 Ví dụ:
 \begin{figure*}
@@ -105,12 +105,13 @@ a           & n & Output\\
 \{2, 3, 4\} & 7 & 3 4  \\
 \{2, 3, 4\} & 4 & 4  \\
 \{2, 3, 4\} & 9 & 2 3 4 \\
-\{2, 3, 4\} & 15 & 2 3 3 3 4 \\
+\{2, 3, 4\} & 15 & 4 4 4 3 \\
 \{2, 3, 5\} & 15 & 5 5 5 \\
 \hline
 \end{tabular}
 \end{figure*}
 
+\newpage
 \subsection{Bài tập tự luyện ở nhà}
 \subsubsection{Cấp phát động}
 Cho cấu trúc số phức như ở bên dưới, hãy viết \textbf{hàm} cấp phát bộ nhớ động và giải phóng bộ nhớ cho một ma trận phức có kích thước $M\times N$ nhập từ bàn phím. Hãy viết thêm các \textbf{hàm} nhập, xuất dữ liệu và tính tổng các phần tử cho ma trận này. 
