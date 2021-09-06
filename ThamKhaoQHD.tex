@@ -85,7 +85,7 @@
     \textbf{\Large Tài liệu tham khảo Quy hoạch động}
 \end{center}
 
-Đây là một bài trong đề thi môn \textit{Thực hành Toán tổ hợp} của trường mình năm 2021 (đây là môn bắt buộc của CNTT). Nó có liên quan đến đệ quy và quy hoạch động nên tụi mình muốn gửi để các bạn tham khảo. Bài giải này là bài giải \textit{thật} do một thành viên K19 của CLB đóng góp. Cuối cùng mình có đính kèm 3 cách giải bài này theo quy hoạch động bằng Python và 1 cách theo C++. \bigskip 
+Đây là một bài trong đề thi môn \textit{Thực hành Toán tổ hợp} của trường mình năm 2021 (môn bắt buộc của CNTT). Nó có liên quan đến đệ quy và quy hoạch động nên tụi mình muốn gửi để các bạn tham khảo. Bài giải này là bài giải \textit{thật} (tức là đã được nộp) do một thành viên K19 của CLB đóng góp. Cuối cùng mình có đính kèm 3 cách giải bài này theo quy hoạch động bằng C++. \bigskip 
 
 CLB và các cá nhân liên quan không sở hữu đề bài này.
 
@@ -251,18 +251,15 @@ $$\bigskip
 \section{Code} \label{code}
 Các bạn có thể copy nội dung của các đoạn code trong phần này trong thư mục \verb#answer-sources# ở link sau: \href{https://github.com/hungngocphat01/nes-ktlt-2021}{Github: hungngocphat01/nes-ktlt-2021}. \bigskip 
 
-\paragraph{Tại sao lại Python?} Vì việc biểu diễn thuật toán bằng Python rất tự nhiên (giống y như khi bạn nói tiếng Anh). C++ viết thuật toán rất mệt (mình không muốn sử dụng cấp phát động, đặc biệt với những kiểu phức tạp). Nhưng ở cuối file mình cũng viết mẫu 1 bài nhỏ bằng C++. Phần này mình thêm vào sau chứ môn \textit{Toán tổ hợp} này thì không có code. \bigskip 
-
-\inputminted[linenos,breaklines]{python}{answer_sources/QHD_ThamKhao.py}
+\inputminted[linenos,breaklines]{cpp}{answer_sources/QHD_ThamKhao2.cpp}
 
 Sau khi chạy, các bạn sẽ thu được kết quả như sau:
 \begin{figure}[H]
     \centering 
     \includegraphics[width=\textwidth]{image/qhd_run.png}
 \end{figure}
-Trong đó 2 cái đầu tiên có quy hoạch động chạy rất nhanh (dưới 0.1s là đã giải xong). Cái cuối cùng giải rất lâu, gần như \textit{không thể giải ra}. \bigskip 
+Trong đó 2 cái đầu tiên có quy hoạch động chạy rất nhanh (giải ra \textit{ngay lập tức}). Cái cuối cùng giải rất lâu nên mình không chụp được kết quả. Trong một số trường hợp có thể \textit{không giải ra được}. \bigskip 
 
-Dưới đây là cài đặt lại hàm cuối cùng (bottom up) bằng C++ (cái này dễ cấp phát nên mình code lại cho các bạn dễ hiểu):
-\inputminted[linenos,breaklines]{cpp}{answer_sources/QHD_ThamKhao2.cpp}
-Kết quả thu được sẽ hoàn toàn tương tự.
+Như các bạn thấy thì việc code 1 bài như trên đòi hỏi phải sử dụng cấp phát động và định nghĩa thêm kiểu \verb#struct# khá phiền phức. Đó là lý do tại sao bạn nên sử dụng Python (hay các ngôn ngữ bậc cao khác) để học thuật toán. Các bạn có thể đọc code của bài đó giải bằng Python ở link: \href{https://github.com/hungngocphat01/LaTeX-NES-KTLT-2021/blob/main/answer_sources/QHD_ThamKhao.py}{QHD\_ThamKhao.py @ hungngocphat01/LaTeX-NES-KTLT-2021}. \bigskip 
+
 \end{document}
