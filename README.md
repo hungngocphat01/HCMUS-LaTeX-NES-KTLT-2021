@@ -20,9 +20,32 @@
     - Các tập tin bổ sung khác.
 
 # Compile thủ công
-## Cách 1: TexLive
-- Cài đặt TexLive, `python-pygments` và GNU make một cách phù hợp tùy thuộc vào hệ điều hành. <br>
-- Gọi lệnh `make` trong thư mục gốc của repository.
+## Cách 1: Docker
+Cách này hoạt động trên mọi hệ điều hành và đảm bảo không lỗi, không cần chỉnh sửa thêm nội dung.
+- Cài đặt Docker và enable các services (tự xem hướng dẫn).
+- Pull image:
+```
+docker pull texlive/texlive
+```
+- Để build file `main.tex`, chạy lệnh:
+    - Windows: 
+    ```bash
+    docker run -v ${PWD}:/work -w /work texlive/texlive make
+    ```
+    - Linux/macOS:
+    ```bash
+    docker run -v "$(pwd)":/work --user "$(id -u):$(id -g)" -w /work texlive/texlive make
+    ```
+- Để build file `ThamKhaoQHD.tex`, chạy lệnh:
+```bash
+# Windows:
+docker run -v ${PWD}:/work -w /work texlive/texlive make TEX=ThamKhaoQHD.tex
+
+# Linux/macOS:
+docker run -v "$(pwd)":/work --user "$(id -u):$(id -g)" -w /work texlive/texlive make TEX=ThamKhaoQHD.tex
+```
+
+File sau khi được build sẽ nằm trong thư mục `build`.
 
 ## Cách 2: Overleaf
 - Import toàn bộ project này vào Overleaf.
