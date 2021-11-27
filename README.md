@@ -1,4 +1,4 @@
-**Tài liệu này đã hoàn thành xong sứ mệnh của nó, các khóa sau muốn dùng lại hãy sử dụng chức năng _fork_ của GitHub**.
+**Tài liệu này đã hoàn thành xong sứ mệnh của nó nên repository này đã bị khóa từ tháng 11 năm 2021. Các khóa sau muốn dùng lại tài liệu này hãy sử dụng chức năng _fork_ của GitHub**.
 
 <div align="center">
     <div>
