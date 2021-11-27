@@ -1,3 +1,5 @@
+**Tài liệu này đã hoàn thành xong sứ mệnh của nó, các khóa sau muốn dùng lại hãy sử dụng chức năng _fork_ của GitHub**.
+
 <div align="center">
     <div>
         <h1> LaTeX Project: Tài liệu ôn thi cuối kỳ môn Kỹ thuật lập trình </h1>
